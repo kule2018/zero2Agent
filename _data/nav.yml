@@ -156,6 +156,8 @@ modules:
         slug: "05-agent-eval"
       - title: "从 SFT 到部署：Agent 模型上线全流程"
         slug: "06-train-to-deploy"
+      - title: "Agent 训练环境工程：从仿真沙箱到数据回流闭环"
+        slug: "07-training-environment-engineering"
   - title: "Agent 应用实战"
     slug: "learn-agent-practice"
     articles:

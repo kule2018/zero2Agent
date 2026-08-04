@@ -7,7 +7,7 @@ eyebrow: Module 08
 
 # learn-agent-training
 
-Agent 不只是 prompt + tool calling——当你需要让模型真正学会“做 Agent”，就得进入训练层面。这个模块聚焦 Agent 场景下的 SFT、RL 等训练技术，从数据构造到 Loss Mask 策略到上线配比，覆盖工程落地中最容易踩坑的细节。
+Agent 不只是 prompt + tool calling——当你需要让模型真正学会“做 Agent”，就得进入训练层面。这个模块聚焦 Agent 场景下的 SFT、RL 与训练环境工程，从轨迹数据、Loss Mask 和算法选型，一直到仿真沙箱、评估门禁、数据回流和上线部署。
 
 适合已经理解 Agent 基本架构、想深入了解“如何训练一个 Agent 模型”的读者。
 
@@ -18,6 +18,7 @@ Agent 不只是 prompt + tool calling——当你需要让模型真正学会“�
 - 关键训练技巧：Causal Mask、Loss Mask 策略（哪些 token 该算 loss）
 - SFT 与 RL 的配合：SFT 让模型“能跑起来”，RL 提升决策质量
 - 训练数据配比经验：Agent 轨迹、Tool Calling、通用指令、长文本、安全数据的比例
+- 训练环境工程：仿真交互沙箱、隔离 Verifier、评估门禁与轨迹回流闭环
 
 ## 建议阅读顺序
 
@@ -27,6 +28,7 @@ Agent 不只是 prompt + tool calling——当你需要让模型真正学会“�
 4. [训练数据配比实战：Agent 不只吃轨迹数据](04-data-mix/index.html)
 5. [Agent 评测：怎么衡量你训练出来的 Agent 到底行不行](05-agent-eval/index.html)
 6. [从 SFT 到部署：Agent 模型上线全流程](06-train-to-deploy/index.html)
+7. [Agent 训练环境工程：从仿真沙箱到数据回流闭环](07-training-environment-engineering/index.html)
 
 ## 文章完成状态
 
@@ -36,3 +38,4 @@ Agent 不只是 prompt + tool calling——当你需要让模型真正学会“�
 - [x] 训练数据配比实战经验
 - [x] Agent 评测：怎么衡量训练效果
 - [x] 从 SFT 到部署：Agent 模型上线全流程
+- [x] Agent 训练环境工程：从仿真沙箱到数据回流闭环

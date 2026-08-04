@@ -31,18 +31,18 @@
 
 | 模块 | 文章数 | 状态 | 内容 |
 |------|--------|------|------|
-| [Agent Basic](https://onefly.top/zero2Agent/learn-agent-basic/) | 10 篇 | ✅ 完成 | Agent 核心概念、模型 API、Tool Calling、Context、Memory、Loop 与 Infra |
+| [Agent Basic](https://onefly.top/zero2Agent/learn-agent-basic/) | 17 篇 | ✅ 完成 | Agent 核心概念、模型 API、Tool Calling、Context、Memory、Loop 与 Infra |
 | [OpenClaw Agent](https://onefly.top/zero2Agent/learn-openclaw/) | 9 篇 | ✅ 完成 | 60 行核心框架，从 Node 推导到 Agent，pi-mono 架构解析，部署实战 |
 | [Claude Code](https://onefly.top/zero2Agent/learn-claude-code/) | 12 篇 | ✅ 完成 | 12 节课手写 Coding Agent：Loop → Tools → Subagent → Teams → Worktree 隔离 |
 | [LangGraph](https://onefly.top/zero2Agent/learn-langgraph/) | 7 篇 | ✅ 完成 | StateGraph 三件套、条件分支、并行 Fan-out/Fan-in、Prompt Chaining、LLM 集成 |
 | [SDK 框架](https://onefly.top/zero2Agent/learn-sdk-frameworks/) | 4 篇 | ✅ 完成 | OpenAI Agents SDK · Google genai SDK · Claude Anthropic SDK · 三大 SDK 横向对比 |
 | [框架调研](https://onefly.top/zero2Agent/learn-agent-survey/) | 13 篇 | ✅ 完成 | AgentScope · Mastra · Semantic Kernel · Eino · DeerFlow · LangChain · Google ADK · AutoGen · Vercel AI SDK 等 |
-| [Agent 训练实战](https://onefly.top/zero2Agent/learn-agent-training/) | 6 篇 | ✅ 完成 | SFT、RL、GRPO/PPO、数据配比、Agent 评测与部署 |
+| [Agent 训练实战](https://onefly.top/zero2Agent/learn-agent-training/) | 7 篇 | ✅ 完成 | SFT、RL、GRPO/PPO、数据配比、仿真沙箱、评估回流与部署 |
 | [Agent 应用实战](https://onefly.top/zero2Agent/learn-agent-practice/) | 3 篇 | 🚧 进行中 | Vibe Coding、AI Coding 面试与日常 Agent 开发工作流 |
 | [面试通关](https://onefly.top/zero2Agent/learn-agent-interview/) | 15 篇 | ✅ 完成 | 大厂 AI Agent 岗位高频面试题拆解，15 大考察维度，新手答 vs 高手答对比 |
 | [Final Project](https://onefly.top/zero2Agent/final-project/) | 12 篇 | ✅ 完成 | OfferPilot 面试诊断 Agent 实战：手写 Harness 10 层架构，从 PRD 到部署 |
 
-> **当前进度：91 篇文章，9 个完整模块，1 个模块持续更新**
+> **当前进度：99 篇文章，9 个完整模块，1 个模块持续更新**
 
 ---
 
@@ -129,7 +129,7 @@ agent    = chatbot + tools    # 图内回路，模型驱动工具
 
 ### 面试通关
 
-大厂 AI Agent 岗位高频面试题深度拆解，覆盖蚂蚁、阿里、字节、腾讯、携程等真实面试场景。每道题对比"新手答"和"高手答"，15 大考察维度：
+大厂 AI Agent 岗位高频面试题深度拆解，覆盖蚂蚁、阿里、字节、腾讯、携程等真实面试场景。每道题对比“新手答”和“高手答”，15 大考察维度：
 
 | 维度 | 核心考点 |
 |------|---------|
@@ -198,13 +198,13 @@ zero2Agent/
 │   └── js/app.js           # 侧边栏 + TOC + Mermaid
 ├── examples/
 │   └── agent-api-lab/      # 无密钥 API 协议、上下文消融和故障注入实验
-├── learn-agent-basic/      # Agent 基础概念（10 篇）
+├── learn-agent-basic/      # Agent 基础概念（17 篇）
 ├── learn-openclaw/         # OpenClaw 框架教程（9 篇）
 ├── learn-claude-code/      # Claude Code 课程（12 篇）
 ├── learn-langgraph/        # LangGraph（7 篇）
 ├── learn-sdk-frameworks/   # 三大原厂 SDK（4 篇）
 ├── learn-agent-survey/     # 框架调研（13 篇）
-├── learn-agent-training/   # Agent 训练实战（6 篇）
+├── learn-agent-training/   # Agent 训练实战（7 篇）
 ├── learn-agent-practice/   # Agent 应用实战（3 篇，持续更新）
 ├── learn-agent-interview/  # 大厂面试题拆解（15 篇）
 └── final-project/          # OfferPilot 面试诊断 Agent 实战（12 篇）
