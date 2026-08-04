@@ -28,8 +28,20 @@ import { homedir } from "node:os";
 import { createInterface } from "node:readline";
 import { existsSync } from "node:fs";
 
-const CHROME_PATH =
-  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+const CHROME_CANDIDATES = [
+  process.env.CHROME_PATH,
+  process.platform === "win32" && process.env.PROGRAMFILES
+    ? join(process.env.PROGRAMFILES, "Google", "Chrome", "Application", "chrome.exe")
+    : null,
+  process.platform === "win32" && process.env["PROGRAMFILES(X86)"]
+    ? join(process.env["PROGRAMFILES(X86)"], "Google", "Chrome", "Application", "chrome.exe")
+    : null,
+  process.platform === "win32" && process.env.LOCALAPPDATA
+    ? join(process.env.LOCALAPPDATA, "Google", "Chrome", "Application", "chrome.exe")
+    : null,
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+].filter(Boolean);
+const CHROME_PATH = CHROME_CANDIDATES.find(existsSync);
 const CHROME_USER_DIR = join(homedir(), ".chrome-nowcoder");
 
 // ─── 参数解析 ───────────────────────────────────────────────────────────────────
@@ -148,7 +160,9 @@ async function isCdpReachable(port) {
 }
 
 async function launchChrome(port) {
-  if (!existsSync(CHROME_PATH)) throw new Error(`Chrome not found at ${CHROME_PATH}`);
+  if (!CHROME_PATH) {
+    throw new Error(`Chrome not found. Checked: ${CHROME_CANDIDATES.join(", ")}`);
+  }
   if (!existsSync(CHROME_USER_DIR)) await mkdir(CHROME_USER_DIR, { recursive: true });
   const child = spawn(CHROME_PATH, [
     `--remote-debugging-port=${port}`,

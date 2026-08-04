@@ -516,7 +516,7 @@ flowchart TB
 
 ## Q：Hermes、OpenCode、Claude Code、OpenClaw 等热门 Coding Agent 工具的核心差异和适用场景？
 
-> 来源：哆咔互娱 Agent开发实习一面
+> 来源：哆咔互娱 Agent开发实习一面【唯品会大模型算法实习追问：主流 Agent 框架在 Harness 上有什么差异】
 
 **新手答**：“Claude Code 最强，其他的也差不多，都是用大模型写代码的工具。”
 
