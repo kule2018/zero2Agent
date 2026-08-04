@@ -305,3 +305,7 @@ Final Session: 收尾
 上一篇：
 
 - [AI Coding 面试：解题流程与交付策略](../02-ai-coding-interview/index.html)——把这些方法论压缩到 30-60 分钟面试场景
+
+下一篇建议继续看：
+
+- [Auto Harness 实战：从失败轨迹迭代 Agent 运行骨架](../04-auto-harness/index.html)——从使用固定 Harness 走向基于失败证据的持续迭代

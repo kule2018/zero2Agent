@@ -102,11 +102,14 @@ both link destination existence and `baseurl: /zero2Agent` behavior.
 
 ## Diagrams And Assets
 
-- Prefer fenced `mermaid` blocks for small diagrams. The site currently loads
-  Mermaid 9.4.3 with `htmlLabels: false`; follow `mermaid-check` for compatible
-  labels and syntax.
-- Use `drawio-skill` for architecture or relationship diagrams that need stable
-  layout. Keep the editable `.drawio` source with its rendered asset.
+- Prefer fenced `mermaid` blocks for diagrams, including architecture,
+  relationship, and multi-stage flow diagrams. The site currently loads Mermaid
+  9.4.3 with `htmlLabels: false`; follow `mermaid-check` for compatible labels
+  and syntax.
+- Do not use Draw.io by default. Use `drawio-skill` only when Mermaid cannot
+  express the required layout reliably or when the user explicitly requests an
+  editable Draw.io canvas. Keep the editable `.drawio` source with its rendered
+  asset when this exception applies.
 - Store durable images under the relevant article directory or `assets/images/`
   using descriptive names and alt text. Do not commit temporary renders.
 - Visually inspect changed pages at desktop and mobile widths when layout,

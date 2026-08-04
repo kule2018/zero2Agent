@@ -167,6 +167,8 @@ modules:
         slug: "02-ai-coding-interview"
       - title: "日常开发中的 Agent 工作流"
         slug: "03-daily-dev-workflow"
+      - title: "Auto Harness 迭代实战"
+        slug: "04-auto-harness"
   - title: "Agent 面试通关"
     slug: "learn-agent-interview"
     articles:

@@ -38,11 +38,11 @@
 | [SDK 框架](https://onefly.top/zero2Agent/learn-sdk-frameworks/) | 4 篇 | ✅ 完成 | OpenAI Agents SDK · Google genai SDK · Claude Anthropic SDK · 三大 SDK 横向对比 |
 | [框架调研](https://onefly.top/zero2Agent/learn-agent-survey/) | 13 篇 | ✅ 完成 | AgentScope · Mastra · Semantic Kernel · Eino · DeerFlow · LangChain · Google ADK · AutoGen · Vercel AI SDK 等 |
 | [Agent 训练实战](https://onefly.top/zero2Agent/learn-agent-training/) | 7 篇 | ✅ 完成 | SFT、RL、GRPO/PPO、数据配比、仿真沙箱、评估回流与部署 |
-| [Agent 应用实战](https://onefly.top/zero2Agent/learn-agent-practice/) | 3 篇 | 🚧 进行中 | Vibe Coding、AI Coding 面试与日常 Agent 开发工作流 |
+| [Agent 应用实战](https://onefly.top/zero2Agent/learn-agent-practice/) | 4 篇 | 🚧 进行中 | Vibe Coding、AI Coding 面试、日常开发工作流与 Auto Harness 工程 |
 | [面试通关](https://onefly.top/zero2Agent/learn-agent-interview/) | 15 篇 | ✅ 完成 | 大厂 AI Agent 岗位高频面试题拆解，15 大考察维度，新手答 vs 高手答对比 |
 | [Final Project](https://onefly.top/zero2Agent/final-project/) | 12 篇 | ✅ 完成 | OfferPilot 面试诊断 Agent 实战：手写 Harness 10 层架构，从 PRD 到部署 |
 
-> **当前进度：99 篇文章，9 个完整模块，1 个模块持续更新**
+> **当前进度：100 篇文章，9 个完整模块，1 个模块持续更新**
 
 ---
 
@@ -205,7 +205,7 @@ zero2Agent/
 ├── learn-sdk-frameworks/   # 三大原厂 SDK（4 篇）
 ├── learn-agent-survey/     # 框架调研（13 篇）
 ├── learn-agent-training/   # Agent 训练实战（7 篇）
-├── learn-agent-practice/   # Agent 应用实战（3 篇，持续更新）
+├── learn-agent-practice/   # Agent 应用实战（4 篇，持续更新）
 ├── learn-agent-interview/  # 大厂面试题拆解（15 篇）
 └── final-project/          # OfferPilot 面试诊断 Agent 实战（12 篇）
 ```
