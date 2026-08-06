@@ -320,7 +320,7 @@ flowchart TB
 
 ### Q：什么时候该用 subagent？为什么工具调用多就倾向用 subagent？
 
-> 来源：蚂蚁集团一面
+> 来源：蚂蚁集团一面 【小红书 Agent 岗一面追问：多 Agent 相比单 Agent 的优势及上下文压力】
 
 **新手答**：“工具调用多就用 subagent，少就不用。”
 

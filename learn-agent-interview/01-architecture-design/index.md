@@ -16,7 +16,7 @@ eyebrow: Agent 面试通关 / 01
 
 ### Q：你用 ReAct 还是 Plan-and-Execute？为什么？
 
-> 来源：腾讯 Agent 岗终面 【蚂蚁AI应用开发二面同题：ReAct 核心原理与复杂任务提升逻辑】【字节二面同题：ReAct vs Plan-and-Execute 理解与优劣对比】
+> 来源：腾讯 Agent 岗终面 【蚂蚁AI应用开发二面同题：ReAct 核心原理与复杂任务提升逻辑】【字节二面同题：ReAct vs Plan-and-Execute 理解与优劣对比】【小红书 Agent 岗一面追问：ReAct/Plan Mode 双模式与多轮状态机实现】
 
 **新手答**：“看情况，复杂用 ReAct，简单用 Plan。”
 
@@ -1851,7 +1851,9 @@ flowchart TB
 
 **高手答**：
 
-生产级 ReAct 不能依赖自由文本拼接，而要把每一步建模成可验证的结构化事件：
+生产级 ReAct 不能依赖自由文本拼接，而要把每一步建模成可验证的结构化事件。ReAct 和 Plan Mode 也不应是两套互不相干的程序：外层用同一个任务状态机，Plan Mode 先产生带依赖的步骤图，ReAct 则在每个步骤内部根据 observation 动态决策；执行失败、证据不足或环境变化时再回到 Planner 重规划。
+
+典型状态可以设计为 `RECEIVED → CONTEXT_READY → PLANNED → EXECUTING → VERIFYING → COMPLETED`，并允许转入 `WAITING_FOR_USER / RETRYING / REPLANNING / FAILED / CANCELLED`。状态迁移由编排器根据结构化事件驱动，而不是让模型用自然语言声称“现在进入下一步”。
 
 | 字段 | 作用 |
 |------|------|
