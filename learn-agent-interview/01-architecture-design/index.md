@@ -315,7 +315,7 @@ Agent = LLM（大脑）+ Planning（规划）+ Memory（记忆）+ Tool Use（�
 
 ### Q：什么时候该做 Agent？和 Workflow 的边界在哪？
 
-> 来源：Agent 开发面试 30 题
+> 来源：Agent 开发面试 30 题 【小红书 Rednote AI Native 一面追问：大模型与工作流如何权衡、固定流程为何仍用 Agent】
 
 **新手答**：“需求复杂就用 Agent，简单就用 Workflow。”
 
