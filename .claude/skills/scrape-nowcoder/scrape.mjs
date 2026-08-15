@@ -13,7 +13,10 @@
  *
  * 选项：
  *   --login           打开浏览器让你登录牛客，cookie 保存在独立 profile 中
- *   --pages <n>       抓取列表页数 (默认 1)
+ *   --home            首页推荐流模式
+ *   --topic <url|id>  话题流模式；支持完整 URL 或 type 值 (默认 818_1)
+ *   --pages <n>       最大页数；首页模式下表示连续滚动批次 (默认 1)
+ *   --since <date>    标准 type 话题仅抓该日期及之后内容，并保守提前停页
  *   --keyword <kw>    按关键词筛选标题 (如 "AI"、"大模型")
  *   --search <query>  搜索模式，按关键词在搜索页抓取
  *   --out <dir>       输出目录 (默认 .claude/skills/scrape-nowcoder/nowcoder-output)
@@ -50,39 +53,131 @@ function parseArgs() {
   const args = process.argv.slice(2);
   const opts = {
     login: false,
+    home: false,
+    topic: "",
     pages: 1,
+    since: "",
     keyword: "",
     search: "",
     out: join(import.meta.dirname, "nowcoder-output"),
     port: 9222,
     delay: 2000,
   };
+  const nextValue = (index, option) => {
+    const value = args[index + 1];
+    if (!value || value.startsWith("--")) {
+      throw new Error(`${option} 缺少参数值`);
+    }
+    return value;
+  };
   for (let i = 0; i < args.length; i++) {
     switch (args[i]) {
       case "--login":
         opts.login = true;
         break;
+      case "--home":
+        opts.home = true;
+        break;
+      case "--topic":
+        opts.topic = nextValue(i, args[i]);
+        i++;
+        break;
       case "--pages":
-        opts.pages = parseInt(args[++i], 10);
+        opts.pages = Number(nextValue(i, args[i]));
+        i++;
+        break;
+      case "--since":
+        opts.since = nextValue(i, args[i]);
+        i++;
         break;
       case "--keyword":
-        opts.keyword = args[++i];
+        opts.keyword = nextValue(i, args[i]);
+        i++;
         break;
       case "--search":
-        opts.search = args[++i];
+        opts.search = nextValue(i, args[i]);
+        i++;
         break;
       case "--out":
-        opts.out = args[++i];
+        opts.out = nextValue(i, args[i]);
+        i++;
         break;
       case "--port":
-        opts.port = parseInt(args[++i], 10);
+        opts.port = Number(nextValue(i, args[i]));
+        i++;
         break;
       case "--delay":
-        opts.delay = parseInt(args[++i], 10);
+        opts.delay = Number(nextValue(i, args[i]));
+        i++;
         break;
+      default:
+        throw new Error(`未知参数: ${args[i]}`);
     }
   }
+  if (!Number.isInteger(opts.pages) || opts.pages < 1) {
+    throw new Error("--pages 必须是大于等于 1 的整数");
+  }
+  if (!Number.isInteger(opts.port) || opts.port < 1 || opts.port > 65535) {
+    throw new Error("--port 必须是 1 到 65535 之间的整数");
+  }
+  if (!Number.isFinite(opts.delay) || opts.delay < 0) {
+    throw new Error("--delay 必须是大于等于 0 的数字");
+  }
   return opts;
+}
+
+function resolveFeedMode(opts) {
+  const explicitModes = [opts.home, Boolean(opts.topic), Boolean(opts.search)]
+    .filter(Boolean).length;
+  if (explicitModes > 1) {
+    throw new Error("--home、--topic 和 --search 只能选择一种模式");
+  }
+  if (opts.search) return { mode: "search", label: `搜索:\"${opts.search}\"` };
+  if (opts.home) {
+    return { mode: "home", label: "首页推荐流", url: "https://www.nowcoder.com/" };
+  }
+
+  const topic = opts.topic || "818_1";
+  if (/^https?:\/\//i.test(topic)) {
+    const url = new URL(topic);
+    if (url.hostname !== "nowcoder.com" && !url.hostname.endsWith(".nowcoder.com")) {
+      throw new Error(`--topic 只接受牛客网 URL，当前为 ${url.hostname}`);
+    }
+    const type = url.searchParams.get("type") || "";
+    const match = type.match(/^(\d+)_(\d+)$/);
+    return {
+      mode: "topic",
+      label: `话题流:${url.href}`,
+      url: url.href,
+      topicApi: match ? { tabId: match[1], categoryType: match[2] } : null,
+    };
+  }
+  const match = topic.match(/^(\d+)_(\d+)$/);
+  return {
+    mode: "topic",
+    label: `话题流:type=${topic}`,
+    url: `https://www.nowcoder.com/?type=${encodeURIComponent(topic)}`,
+    topicApi: match ? { tabId: match[1], categoryType: match[2] } : null,
+  };
+}
+
+function parseSince(value) {
+  if (!value) return 0;
+  const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) {
+    throw new Error(`--since 格式应为 YYYY-MM-DD，当前为 ${value}`);
+  }
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const leapYear = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  const daysInMonth = [31, leapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (month < 1 || month > 12 || day < 1 || day > daysInMonth[month - 1]) {
+    throw new Error(`--since 不是有效日期，当前为 ${value}`);
+  }
+  const timestamp = Date.parse(`${value}T00:00:00+08:00`);
+  if (!Number.isFinite(timestamp)) throw new Error(`无法解析 --since ${value}`);
+  return timestamp;
 }
 
 // ─── CDP 封装 ────────────────────────────────────────────────────────────────────
@@ -261,53 +356,44 @@ async function loginMode(opts) {
 
 // ─── 列表页抓取 ──────────────────────────────────────────────────────────────────
 
-async function scrapeListPage(cdp, pageNum) {
-  const url = "https://www.nowcoder.com/?type=818_1";
-  await navigate(cdp, url);
-  await sleep(3000);
-
-  // 滚动加载更多内容
-  await scrollToBottom(cdp, 8);
-  await sleep(2000);
-
-  const articles = await evaluate(
+async function extractListArticles(cdp) {
+  return (await evaluate(
     cdp,
     `(() => {
       const items = [];
       const seen = new Set();
 
-      // 标题元素：Tailwind 的 tw-font-bold 或 tw-overflow-hidden 标题 div
-      // 它们的父级 a 标签包含文章链接
-      const titleEls = document.querySelectorAll('.tw-font-bold, [class*="tw-overflow-hidden"][class*="hover:tw-text"]');
+      // 首页和话题流的标题不是链接，正文预览才是链接；从链接反查卡片标题。
+      const links = document.querySelectorAll(
+        'a[href*="/feed/main/detail/"], a[href*="/discuss/"]'
+      );
 
-      titleEls.forEach(el => {
-        const title = el.textContent.trim();
-        if (!title || title.length < 4 || title.length > 150) return;
-
-        // 找到包含链接的父级 a
-        const linkEl = el.closest('a') || el.parentElement?.closest('a');
-        let href = '';
-        if (linkEl) {
-          href = linkEl.href.split('?')[0];
-        } else {
-          // 尝试从同级找 feed-text 链接
-          const card = el.closest('[class*="feed"]') || el.parentElement?.parentElement?.parentElement;
-          const feedLink = card?.querySelector('a[href*="/feed/main/detail/"], a[href*="/discuss/"]');
-          if (feedLink) href = feedLink.href.split('?')[0];
-        }
+      links.forEach(linkEl => {
+        const href = linkEl.href.split('?')[0];
         if (!href || seen.has(href)) return;
         if (!href.includes('/feed/') && !href.includes('/discuss/')) return;
         seen.add(href);
 
-        // 找作者和预览
-        const card = el.closest('[class*="feed"]') || el.parentElement?.parentElement?.parentElement?.parentElement;
+        const card = linkEl.closest('[class*="tw-px-5"][class*="tw-relative"]')
+          || linkEl.closest('article, li')
+          || linkEl.parentElement?.parentElement;
+        const titleEl = card?.querySelector(
+          '.tw-font-bold, h1, h2, h3, [class*="title"]'
+        );
+        const linkText = linkEl.textContent.trim().replace(/\s+/g, ' ');
+        let title = titleEl?.textContent.trim().replace(/\s+/g, ' ') || linkText;
+        if (!title || title.length < 4) return;
+        if (title.length > 150) title = title.slice(0, 147) + '...';
+
         let author = '';
-        let preview = '';
+        let preview = linkText.slice(0, 500);
         if (card) {
-          const authorEl = card.querySelector('[class*="name"], [class*="nick"]');
+          const authorEl = card.querySelector(
+            '[class*="user-nickname"], [class*="author"] [class*="name"], [class*="nick"]'
+          );
           if (authorEl) author = authorEl.textContent.trim();
-          const previewEl = card.querySelector('.feed-text, [class*="text-gray"]');
-          if (previewEl && previewEl !== el) preview = previewEl.textContent.trim().slice(0, 300);
+          const previewEl = card.querySelector('.feed-text');
+          if (previewEl) preview = previewEl.textContent.trim().replace(/\s+/g, ' ').slice(0, 500);
         }
 
         items.push({ title, url: href, author, preview });
@@ -315,12 +401,128 @@ async function scrapeListPage(cdp, pageNum) {
 
       return items;
     })()`
-  );
+  )) || [];
+}
 
-  return articles || [];
+async function getFeedState(cdp) {
+  return evaluate(
+    cdp,
+    `(() => ({
+      height: document.documentElement.scrollHeight,
+      top: document.documentElement.scrollTop,
+      links: document.querySelectorAll('a[href*="/feed/main/detail/"], a[href*="/discuss/"]').length
+    }))()`
+  );
+}
+
+async function scrapeListPage(cdp, pageNum, seenUrls, url) {
+  if (pageNum === 1) {
+    await navigate(cdp, url);
+    await sleep(3000);
+  }
+
+  const articles = [];
+  let staleRounds = 0;
+
+  // 首页和非标准话题 URL 使用无限滚动流。每个 --pages 批次
+  // 最多触发 8 次懒加载，并在连续两轮没有新链接时提前停止。
+  for (let i = 0; i < 8 && staleRounds < 2; i++) {
+    const before = await getFeedState(cdp);
+    const beforeCount = articles.length;
+    const visible = await extractListArticles(cdp);
+    for (const article of visible) {
+      if (seenUrls.has(article.url)) continue;
+      seenUrls.add(article.url);
+      articles.push(article);
+    }
+
+    await evaluate(
+      cdp,
+      `window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' })`
+    );
+    await sleep(2000);
+
+    const loaded = await extractListArticles(cdp);
+    for (const article of loaded) {
+      if (seenUrls.has(article.url)) continue;
+      seenUrls.add(article.url);
+      articles.push(article);
+    }
+    const after = await getFeedState(cdp);
+    const grew = after.height > before.height || articles.length > beforeCount;
+    staleRounds = grew ? 0 : staleRounds + 1;
+  }
+
+  return articles;
+}
+
+async function scrapeTopicPage(cdp, feed, pageNum) {
+  if (pageNum === 1) {
+    await navigate(cdp, feed.url);
+    await sleep(2000);
+  }
+
+  const params = new URLSearchParams({
+    pageNo: String(pageNum),
+    categoryType: feed.topicApi.categoryType,
+    tabId: feed.topicApi.tabId,
+  });
+  const endpoint = `https://gw-c.nowcoder.com/api/sparta/home/tab/content?${params}`;
+  const payload = await evaluate(
+    cdp,
+    `fetch(${JSON.stringify(endpoint)}, { credentials: "include" }).then(r => r.json())`
+  );
+  if (!payload?.success || !payload.data) {
+    throw new Error(`话题页接口失败: ${payload?.msg || "unknown error"}`);
+  }
+
+  const articles = (payload.data.records || []).map((record) => {
+    const body = record.momentData || record.contentData || {};
+    const content = String(body.newContent || body.content || "").trim();
+    const fallbackTitle = content.split(/\r?\n/).find(Boolean) || `面经-${record.contentId}`;
+    const title = String(body.newTitle || body.title || fallbackTitle)
+      .replace(/\s+/g, " ")
+      .slice(0, 150);
+    const url = record.contentType === 74 && body.uuid
+      ? `https://www.nowcoder.com/feed/main/detail/${body.uuid}`
+      : `https://www.nowcoder.com/discuss/${record.contentId}`;
+    return {
+      title,
+      url,
+      author: record.userBrief?.nickname || "",
+      preview: content.replace(/\s+/g, " ").slice(0, 500),
+      publishedAt: Number(body.createdAt || body.createTime || body.showTime || 0),
+    };
+  });
+
+  return {
+    articles,
+    totalPage: Number(payload.data.totalPage || pageNum),
+  };
 }
 
 // ─── 搜索页抓取 ──────────────────────────────────────────────────────────────────
+
+async function getSearchPageState(cdp) {
+  return (await evaluate(
+    cdp,
+    `(() => {
+      const resultRoot = document.querySelector('.subject-all-list');
+      const urls = resultRoot ? Array.from(resultRoot.querySelectorAll(
+        'a[href*="/feed/main/detail/"], a[href*="/discuss/"]'
+      )).map((link) => (link.href || "").split("?")[0]).filter(Boolean) : [];
+      const loading = resultRoot
+        ? Array.from(resultRoot.querySelectorAll('.loading, [class*="loading"]'))
+            .some((node) => node.offsetParent !== null)
+        : true;
+      return {
+        activePage: document.querySelector("ul.pager li.active")?.textContent.trim() || "",
+        fingerprint: Array.from(new Set(urls)).join("\\n"),
+        loading
+      };
+    })()`
+  )) || { activePage: "", fingerprint: "", loading: true };
+}
 
 async function scrapeSearchPage(cdp, query, pageNum) {
   if (pageNum === 1) {
@@ -330,7 +532,8 @@ async function scrapeSearchPage(cdp, query, pageNum) {
     await sleep(3000);
   } else {
     // 后续页：点击分页按钮
-    await evaluate(
+    const previousState = await getSearchPageState(cdp);
+    const clicked = await evaluate(
       cdp,
       `(() => {
         var pager = document.querySelector("ul.pager");
@@ -345,7 +548,34 @@ async function scrapeSearchPage(cdp, query, pageNum) {
         return false;
       })()`
     );
-    await sleep(3000);
+    if (!clicked) return null;
+
+    const deadline = Date.now() + 10000;
+    let loaded = false;
+    let changedFingerprint = "";
+    let stableRounds = 0;
+    while (Date.now() < deadline) {
+      const state = await getSearchPageState(cdp);
+      const changed = state.fingerprint
+        && state.fingerprint !== previousState.fingerprint;
+      if (state.activePage === String(pageNum) && !state.loading && changed) {
+        if (state.fingerprint === changedFingerprint) {
+          stableRounds += 1;
+        } else {
+          changedFingerprint = state.fingerprint;
+          stableRounds = 0;
+        }
+        if (stableRounds >= 2) {
+          loaded = true;
+          break;
+        }
+      } else {
+        changedFingerprint = "";
+        stableRounds = 0;
+      }
+      await sleep(250);
+    }
+    if (!loaded) return null;
   }
 
   const articles = await evaluate(
@@ -353,7 +583,8 @@ async function scrapeSearchPage(cdp, query, pageNum) {
     `(() => {
       var items = [];
       var seen = {};
-      var links = document.querySelectorAll("a");
+      var resultRoot = document.querySelector('.subject-all-list');
+      var links = (resultRoot || document).querySelectorAll("a");
 
       for (var i = 0; i < links.length; i++) {
         var a = links[i];
@@ -507,10 +738,29 @@ function extractDate(timeStr) {
   return "unknown";
 }
 
+function timestampToDate(timestamp) {
+  const parts = new Intl.DateTimeFormat("en", {
+    timeZone: "Asia/Shanghai",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date(timestamp));
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
 // ─── 主流程 ──────────────────────────────────────────────────────────────────────
 
 async function main() {
   const opts = parseArgs();
+  const feed = resolveFeedMode(opts);
+  const requestedSinceTimestamp = parseSince(opts.since);
+  const sinceTimestamp = feed.topicApi ? requestedSinceTimestamp : 0;
+  const sinceSummary = sinceTimestamp
+    ? opts.since
+    : requestedSinceTimestamp
+      ? `${opts.since}（未应用）`
+      : "无";
 
   // 登录模式
   if (opts.login) {
@@ -519,8 +769,10 @@ async function main() {
   }
 
   console.log(`[scrape] 牛客面经抓取 — CDP 方案`);
-  const mode = opts.search ? `搜索:"${opts.search}"` : `面经tab`;
-  console.log(`[scrape] 配置: mode=${mode}, pages=${opts.pages}, keyword="${opts.keyword}", delay=${opts.delay}ms`);
+  console.log(`[scrape] 配置: mode=${feed.label}, pages=${opts.pages}, keyword="${opts.keyword}", since="${opts.since}", delay=${opts.delay}ms`);
+  if (requestedSinceTimestamp && !feed.topicApi) {
+    console.log("[scrape] 提示: --since 仅对带 type=<tab>_<category> 的话题接口生效，本次忽略");
+  }
   console.log(`[scrape] 输出目录: ${opts.out}`);
   console.log();
 
@@ -548,17 +800,66 @@ async function main() {
     await cdp.send("Runtime.enable");
 
     // 抓列表
-    const listMode = opts.search ? "搜索" : "面经tab";
+    const listMode = feed.mode === "search" ? "搜索" : feed.label;
     console.log(`[scrape] === 抓取面经列表（${listMode}） ===`);
     let allArticles = [];
+    const listSeenUrls = new Set();
+    let oldOnlyPageStreak = 0;
 
     for (let p = 1; p <= opts.pages; p++) {
-      console.log(`[scrape] 第 ${p}/${opts.pages} 页...`);
-      const articles = opts.search
-        ? await scrapeSearchPage(cdp, opts.search, p)
-        : await scrapeListPage(cdp, p);
+      const unit = feed.mode === "search" || feed.topicApi ? "页" : "滚动批次";
+      console.log(`[scrape] 第 ${p}/${opts.pages} ${unit}...`);
+      let articles;
+      let lastPage = false;
+      if (feed.mode === "search") {
+        articles = await scrapeSearchPage(cdp, opts.search, p);
+      } else if (feed.topicApi) {
+        const page = await scrapeTopicPage(cdp, feed, p);
+        articles = page.articles;
+        lastPage = p >= page.totalPage;
+      } else {
+        articles = await scrapeListPage(cdp, p, listSeenUrls, feed.url);
+      }
+      if (articles === null) {
+        console.log(`[scrape]   → 搜索结果没有第 ${p} 页，提前停止`);
+        break;
+      }
       console.log(`[scrape]   → ${articles.length} 篇`);
-      allArticles.push(...articles);
+      const usesInfiniteScroll = feed.mode === "home"
+        || (feed.mode === "topic" && !feed.topicApi);
+      const newArticles = usesInfiniteScroll
+        ? articles
+        : articles.filter((article) => {
+            if (listSeenUrls.has(article.url)) return false;
+            listSeenUrls.add(article.url);
+            return true;
+          });
+      const oldOnlyPage = sinceTimestamp > 0
+        && feed.topicApi
+        && newArticles.length > 0
+        && newArticles.every(
+          (article) => article.publishedAt > 0 && article.publishedAt < sinceTimestamp
+        );
+      oldOnlyPageStreak = oldOnlyPage ? oldOnlyPageStreak + 1 : 0;
+      const pageArticles = sinceTimestamp > 0
+        ? newArticles.filter((article) => !article.publishedAt || article.publishedAt >= sinceTimestamp)
+        : newArticles;
+      allArticles.push(...pageArticles);
+      if (oldOnlyPageStreak >= 2) {
+        console.log(`[scrape]   → 连续两页内容均早于 ${opts.since}，提前停止`);
+        break;
+      }
+      if (lastPage) {
+        console.log("[scrape]   → 已到话题最后一页");
+        break;
+      }
+      if (newArticles.length === 0) {
+        console.log("[scrape]   → 本页无新增结果，提前停止");
+        break;
+      }
+      if (oldOnlyPage) {
+        console.log(`[scrape]   → 本页内容均早于 ${opts.since}，继续探测下一页`);
+      }
       if (p < opts.pages) await sleep(opts.delay);
     }
 
@@ -592,12 +893,13 @@ async function main() {
     const indexLines = [
       "# 牛客面经抓取结果\n",
       `抓取时间：${new Date().toLocaleString("zh-CN")}\n`,
-      `筛选：${opts.keyword || "无"} | 页数：${opts.pages}\n`,
-      "| # | 标题 | 作者 |",
-      "|---|------|------|",
+      `模式：${feed.label} | 筛选：${opts.keyword || "无"} | 起始日期：${sinceSummary} | 页数：${opts.pages}\n`,
+      "| # | 日期 | 标题 | 作者 |",
+      "|---|------|------|------|",
     ];
     allArticles.forEach((a, i) => {
-      indexLines.push(`| ${i + 1} | [${a.title}](${a.url}) | ${a.author} |`);
+      const date = a.publishedAt ? timestampToDate(a.publishedAt) : "";
+      indexLines.push(`| ${i + 1} | ${date} | [${a.title}](${a.url}) | ${a.author} |`);
     });
     await writeFile(join(opts.out, "index.md"), indexLines.join("\n"), "utf-8");
 
@@ -613,8 +915,14 @@ async function main() {
         const detail = await scrapeArticleDetail(cdp, article.url);
         results.push(detail);
 
-        const datePrefix = extractDate(detail.time);
-        const filename = `${datePrefix}-${sanitizeFilename(detail.title)}.md`;
+        const datePrefix = article.publishedAt
+          ? timestampToDate(article.publishedAt)
+          : extractDate(detail.time);
+        let filename = `${datePrefix}-${sanitizeFilename(detail.title)}.md`;
+        if (existsSync(join(opts.out, filename))) {
+          const id = article.url.split("/").filter(Boolean).pop().slice(0, 8);
+          filename = `${datePrefix}-${sanitizeFilename(detail.title)}-${id}.md`;
+        }
         await writeFile(join(opts.out, filename), toMarkdown(detail), "utf-8");
         console.log(`[scrape]   ✅ ${detail.content.length} 字`);
       } catch (err) {

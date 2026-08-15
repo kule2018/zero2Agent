@@ -943,7 +943,7 @@ flowchart LR
 
 ### Q：Agent 的 Checkpoint 用什么数据库存？初始化 session 时如何优化加载 Checkpoint 的速度？
 
-> 来源：AI 工程师面试 【CVTE AI应用工程师一面追问：短期记忆为什么用 sqlite checkpointer / 长期记忆如何实现】
+> 来源：AI 工程师面试 【CVTE AI应用工程师一面追问：短期记忆为什么用 sqlite checkpointer / 长期记忆如何实现】【钉学科技 FDE 实习一面追问：字段、一致性与换模型恢复】
 
 **新手答**：”用 Redis 存，读取快。”
 
@@ -975,6 +975,8 @@ checkpoints 表：
 
 通过 `thread_id` 定位会话，`checkpoint_id` 定位最新版本，`parent_id` 支持状态回溯。
 
+生产中的字段通常还要更完整：租户、用户、`run_id` 与 `thread_id`；当前节点、下一候选节点、运行状态；State 快照、channel 版本与待处理写入；已完成/待执行任务；工具调用结果及幂等键；中断原因与人工审批状态；创建时间、过期策略；以及 `model_id`、Prompt、Tool Schema 和运行配置版本。不是所有字段都要塞进一个 JSON，但必须能回答“恢复哪次执行、从哪里继续、依赖哪个运行时版本、哪些副作用已经发生”。
+
 **加载速度优化**：
 
 初始化 session 时加载 Checkpoint 的瓶颈通常在**序列化数据的读取和反序列化**。优化分四个方向：
@@ -1000,6 +1002,8 @@ flowchart LR
 
 热点 session 的最新 Checkpoint 缓存到 Redis，TTL 设为 session 超时时间。命中率高时加载延迟从 10ms 级降到 1ms 级。
 
+这里应把 PostgreSQL/MySQL 当作事实源，Redis 只做**带版本的缓存**。写入时在关系数据库内用 `checkpoint_version` 做 CAS/乐观锁校验，事务提交成功后再失效或更新 Redis；缓存值也携带版本号，发现版本落后或恢复时的 `expected_version` 不匹配，就回源并回填。TTL、提交后失效消息和定时 reconciliation 共同修复漏删缓存，避免“数据库已经到 v12，Redis 还让任务从 v11 继续”的并发覆盖。
+
 **3. 懒加载（Lazy Loading）**：
 
 不一次性加载完整 Checkpoint。先加载元数据（当前节点、步骤数），`channel_values` 中的大字段（如工具返回的长文本、检索结果）按需加载：
@@ -1014,6 +1018,8 @@ flowchart LR
 - 历史步骤的完整工具返回可以压缩为摘要——只保留关键结论，丢弃原始 JSON
 - 用 msgpack 替代 JSON 做序列化，体积缩小 30-50%，反序列化速度更快
 - 超过一定步数的历史 Checkpoint 只保留最近 N 个完整快照，更早的合并为摘要快照
+
+**恢复时切换模型怎么办**：Checkpoint 不只保存业务 State，还要绑定模型、Prompt、Tool Schema、结构化输出 schema 和关键配置版本。恢复时优先固定到原版本；若旧版本不可用，先执行显式迁移，重新校验待执行工具参数、状态 schema 和安全策略，再从最近的稳定节点继续。不能把旧模型生成到一半的 tool call 直接交给新 schema 执行，否则“状态能反序列化”并不等于“语义还能安全续跑”。
 
 **差距在哪**：新手只想到 Redis——快但不可靠，且没考虑加载优化。高手从存储选型（PostgreSQL + 异步连接池）、表结构设计、四层加载优化（索引 + 缓存 + 懒加载 + 压缩）给出了完整方案。面试官考的是你对状态持久化的工程化设计能力——Checkpoint 是 Agent 断点恢复和多轮对话的基石。
 
