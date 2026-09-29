@@ -18,7 +18,7 @@ eyebrow: Agent 面试通关 / 15
 
 ### Q：Harness Engineering 是什么？如果让你构建一个 Harness 体系，你会做哪些工作？
 
-> 来源：快手 AI业务应用设计开发 / [阿里国际 Agent 开发三面](https://www.nowcoder.com/feed/main/detail/747f07e71f4448bebdce6ada5de800cd) / [阿里千问平台开发复活赛一面](https://www.nowcoder.com/feed/main/detail/141447389dab4e8e9ca6db742a514f39) 【字节后端开发日常实习二面同题：“harness有了解吗”】【腾讯AI后端开发一面同题：“了解harness嘛，具体是做什么的”】【美团Agent方向面经同题：“harness工程了解吗？主要内容？项目里怎么用？还能补什么？”】【社招五年Go面经同题：“了解harness engineer吗”】【腾讯音乐暑期+日常同题：“有了解过Harness么？有用过Harness么？”】；[本轮来源](https://www.nowcoder.com/feed/main/detail/2f4e4cde4e524a16aae5f55a89c49273)；[本轮来源](https://www.nowcoder.com/feed/main/detail/89e9597f580840f5a6e9f740cc6b0b97)；[千问AI研发一面凉经](https://www.nowcoder.com/feed/main/detail/ebf0ec03e5ee4fa8a140cc8d247b1e20)；[4399-agent开发面经](https://www.nowcoder.com/feed/main/detail/b040e00a505344deac8f0d2b4968b171)
+> 来源：快手 AI业务应用设计开发 / [阿里国际 Agent 开发三面](https://www.nowcoder.com/feed/main/detail/747f07e71f4448bebdce6ada5de800cd) / [阿里千问平台开发复活赛一面](https://www.nowcoder.com/feed/main/detail/141447389dab4e8e9ca6db742a514f39) 【字节后端开发日常实习二面同题：“harness有了解吗”】【腾讯AI后端开发一面同题：“了解harness嘛，具体是做什么的”】【美团Agent方向面经同题：“harness工程了解吗？主要内容？项目里怎么用？还能补什么？”】【社招五年Go面经同题：“了解harness engineer吗”】【腾讯音乐暑期+日常同题：“有了解过Harness么？有用过Harness么？”】；[本轮来源](https://www.nowcoder.com/feed/main/detail/2f4e4cde4e524a16aae5f55a89c49273)；[本轮来源](https://www.nowcoder.com/feed/main/detail/89e9597f580840f5a6e9f740cc6b0b97)；[千问AI研发一面凉经](https://www.nowcoder.com/feed/main/detail/ebf0ec03e5ee4fa8a140cc8d247b1e20)；[4399-agent开发面经](https://www.nowcoder.com/feed/main/detail/b040e00a505344deac8f0d2b4968b171)；[(秋招) vivo线下面面经 - Agent开发](https://www.nowcoder.com/discuss/932016298563809280)；本轮追问：在让 AI 开始工作前，你通常会做什么来提高输出正确性和可控性？（[度小满 AI 全栈二面](https://www.nowcoder.com/discuss/931952631340077056)）
 
 **新手答**：“好像是跟测试框架有关的东西？不太了解。”
 
@@ -510,7 +510,7 @@ flowchart TB
 
 ## Q：Hermes、OpenCode、Claude Code、OpenClaw 等热门 Coding Agent 工具的核心差异和适用场景？
 
-> 来源：哆咔互娱 Agent开发实习一面 / [蚂蚁 Agent 开发一面](https://www.nowcoder.com/feed/main/detail/39451cad5d2245b491d16778f2a9ca01) / [快手 AI 全栈一面](https://www.nowcoder.com/feed/main/detail/a30242712e8d456c839ff4223470f491) 【唯品会大模型算法实习追问：主流 Agent 框架在 Harness 上有什么差异】；[本轮来源](https://www.nowcoder.com/feed/main/detail/2f4e4cde4e524a16aae5f55a89c49273)；本轮追问：有没有看过市面上流行的开源 Agent 框架，比如 openclaw？讲讲 claw 的实现、记忆机制？（[本轮追问](https://www.nowcoder.com/feed/main/detail/439125efe93b460baea2f71a5d454650)）；本轮追问：你认为 Claude Code 哪些功能做得比较好？（[本轮追问](https://www.nowcoder.com/feed/main/detail/bfd43b5c66784add8fbf5893c164697a)）
+> 来源：哆咔互娱 Agent开发实习一面 / [蚂蚁 Agent 开发一面](https://www.nowcoder.com/feed/main/detail/39451cad5d2245b491d16778f2a9ca01) / [快手 AI 全栈一面](https://www.nowcoder.com/feed/main/detail/a30242712e8d456c839ff4223470f491) 【唯品会大模型算法实习追问：主流 Agent 框架在 Harness 上有什么差异】；[本轮来源](https://www.nowcoder.com/feed/main/detail/2f4e4cde4e524a16aae5f55a89c49273)；本轮追问：有没有看过市面上流行的开源 Agent 框架，比如 openclaw？讲讲 claw 的实现、记忆机制？（[本轮追问](https://www.nowcoder.com/feed/main/detail/439125efe93b460baea2f71a5d454650)）；本轮追问：你认为 Claude Code 哪些功能做得比较好？（[本轮追问](https://www.nowcoder.com/feed/main/detail/bfd43b5c66784add8fbf5893c164697a)）；[字节剪映AI应用开发一面](https://www.nowcoder.com/feed/main/detail/7211e82c75284d23a89b569cd9dc289d)；本轮追问：Claude和Codex二者有什么差别，哪个更好？（[药明康德（AI数据方向-二面）](https://www.nowcoder.com/feed/main/detail/365904cd189149ffb52c36286ab23b37)）
 
 **新手答**：“Claude Code 最强，其他的也差不多，都是用大模型写代码的工具。”
 
@@ -535,6 +535,9 @@ flowchart TB
 还要把底层模型与 Agent 实现分开做对照。固定同一模型和任务集，再比较 Harness 的规则与 Hook、工具权限、Context 组装、状态恢复、Sandbox 以及验证闭环。两个产品即使使用同模型，也会因这些工程契约得到不同的成功率、副作用风险和可恢复性；不能将 Agent 适配简化为换模型或换 Prompt。
 
 选型建议：如果是企业内部需要可控、可审计、安全性要求高 → Claude Code；如果需要深度定制 Runtime 行为 → Hermes/OpenClaw；如果只想快速上手轻量使用 → OpenCode。
+
+
+Claude 与 Codex 的差别不能只看模型名称：还要比较运行环境、上下文组装、工具权限、代码修改与验证闭环，以及数据和成本约束。没有绝对更好；固定任务集和模型后，以成功率、回滚率、耗时、费用和可审计性选型。
 
 **差距在哪**：面试官考的不是你“用过几个工具”，而是你能否从架构层面理解不同 Agent 工具的设计取舍——上下文管理策略、工具协议选型、可控性与开放性的平衡。能说出具体差异而非只报名字，说明你对 Agent 工程有深度认知。
 
@@ -613,6 +616,22 @@ Claude Code、Codex、Trae 等更接近开发环境中的 Coding Agent；豆包�
 - [架构选型：ReAct、Plan-and-Execute 与 ToT 怎么选](../01-architecture-design/index.html)
 - [Prompt 工程与框架原理](../08-prompt-engineering/index.html)
 
+## Q：知识库与 Skills 如何分工承载业务知识？
+
+> 来源：[9.21 蚂蚁二面](https://www.nowcoder.com/feed/main/detail/52b419448b854e24bbdf41ca9e6ffe06)；本轮追问：AI pipeline 对业务知识的理解如何保证准确？（[(秋招) 9.16 字节中交广 - 交易与广告业务 - AI全栈开发工程师](https://www.nowcoder.com/discuss/932587389027962880)）
+
+**新手答**：“知识库主要存放可检索的业务事实和资料，Skills 主要封装完成任务的流程与能力，并通过真实案例测试覆盖率。”
+
+**高手答**：
+
+知识库适合承载相对稳定、可检索且需要频繁更新的事实，例如制度、产品资料、字段定义和操作文档；重点是切分、元数据、权限、版本、召回与引用。Skills 更像可调用的任务能力，承载目标、输入输出契约、工具调用顺序、参数校验、异常处理和完成标准，而不是把大量事实硬编码进去。二者边界应通过变更频率、复用方式和可测试性划分：事实变化通常更新知识库，流程或工具行为变化更新 Skill。验证不能只做问答 Demo，应建立真实业务场景集，覆盖高频、长尾、权限、缺失信息、冲突版本和工具失败；用任务成功率、关键步骤正确率、引用支持率、越权率、人工返工率和成本延迟评估。还要做离线回归、线上抽样与失败案例闭环，防止“能回答”被误判为“能完成业务”。
+
+**差距在哪**：浅层回答只做内容分类，深入回答还要定义边界、执行契约、权限与更新机制，并用真实任务指标验证覆盖而非只测生成文本。
+
+---
+
+---
+
 ## Q：Dify/Coze 这种低代码工作流平台和 Codex/Claude Code 这类 Coding Agent 的本质区别是什么？
 
 > 来源：成都某中厂 Agent 产品开发实习面经；本轮追问：这个产品相比其他 Agent 产品有哪些优势和缺点？（[本轮追问](https://www.nowcoder.com/feed/main/detail/bfd43b5c66784add8fbf5893c164697a)）
@@ -676,6 +695,19 @@ Coding Agent 的天花板是**底层模型的能力**——理论上只要模型
 **差距在哪**：新手只看到了交互形式的差异（拖拽 vs 命令行）。高手理解两者的本质区别在于决策模式（预定义路径 vs 运行时自主决策）和能力上限（设计者想象力 vs 模型能力）。面试官考的是你对 Agent 产品形态的分类认知——不是所有带 AI 的产品都是 Agent，关键区别在于“谁在做决策”。
 
 ---
+
+## Q：Function Calling 和 RAG 分别解决什么问题？如何配合使用？
+
+> 来源：[字节跳动Agent开发1面凉经](https://www.nowcoder.com/discuss/929406267141914624)；[字节全栈一面](https://www.nowcoder.com/feed/main/detail/a01aeac81ad342d88252f899c47f2dc4)
+
+**新手答**：“Function Calling 让模型调用外部工具，RAG 让模型检索外部知识；实际系统可以先用 RAG 找资料，再通过 Function Calling 执行业务操作。”
+
+**高手答**：
+
+Function Calling 解决“让模型按结构化参数请求外部能力”的问题，例如查订单、调用计算服务或提交变更；真正执行仍由应用控制，必须做参数校验、权限检查、超时、重试和幂等。RAG 解决“让模型基于外部或私有资料回答”的问题，通常包括切分、索引、召回、重排和把证据放入上下文，可降低仅依赖模型参数记忆的风险，但会受检索质量、时效性、权限隔离和上下文长度影响。两者可以串联：先检索授权资料，再让模型决定是否调用工具，或工具返回结果后再次生成答案。验证应分别评估召回率、引用与答案正确性、工具参数准确率、拒答率及端到端失败恢复；不能把检索结果或模型输出直接当作可信指令。
+
+**差距在哪**：浅层只会区分“调用工具”和“检索知识”，深入回答还应说明编排顺序、权限与幂等边界，以及如何评估检索和工具执行的可靠性。
+
 
 ## Q：Agent 和 Siri 这种传统助手的核心差别在哪？
 
@@ -742,32 +774,18 @@ Computer Use Agent 通常运行在隔离的桌面或浏览器环境中：先获�
 
 ---
 
-## Q：Function Calling 和 RAG 分别解决什么问题？如何配合使用？
+## Q：DeepAgents 的核心难点、设计亮点及其解决的 Agent 工程痛点是什么？
 
-> 来源：[字节跳动Agent开发1面凉经](https://www.nowcoder.com/discuss/929406267141914624)
+> 来源：[杭州微链词元  AI应用开发](https://www.nowcoder.com/feed/main/detail/0fa200b70a5442f2aad559323802d889)
 
-**新手答**：“Function Calling 让模型调用外部工具，RAG 让模型检索外部知识；实际系统可以先用 RAG 找资料，再通过 Function Calling 执行业务操作。”
-
-**高手答**：
-
-Function Calling 解决“让模型按结构化参数请求外部能力”的问题，例如查订单、调用计算服务或提交变更；真正执行仍由应用控制，必须做参数校验、权限检查、超时、重试和幂等。RAG 解决“让模型基于外部或私有资料回答”的问题，通常包括切分、索引、召回、重排和把证据放入上下文，可降低仅依赖模型参数记忆的风险，但会受检索质量、时效性、权限隔离和上下文长度影响。两者可以串联：先检索授权资料，再让模型决定是否调用工具，或工具返回结果后再次生成答案。验证应分别评估召回率、引用与答案正确性、工具参数准确率、拒答率及端到端失败恢复；不能把检索结果或模型输出直接当作可信指令。
-
-**差距在哪**：浅层只会区分“调用工具”和“检索知识”，深入回答还应说明编排顺序、权限与幂等边界，以及如何评估检索和工具执行的可靠性。
-
-
-## Q：知识库与 Skills 如何分工承载业务知识？
-
-> 来源：[9.21 蚂蚁二面](https://www.nowcoder.com/feed/main/detail/52b419448b854e24bbdf41ca9e6ffe06)
-
-**新手答**：“知识库主要存放可检索的业务事实和资料，Skills 主要封装完成任务的流程与能力，并通过真实案例测试覆盖率。”
+**新手答**：“DeepAgents 是一种带有规划、工具调用、子 Agent 委派和上下文管理能力的 Agent 框架，用来处理复杂的长流程任务。”
 
 **高手答**：
 
-知识库适合承载相对稳定、可检索且需要频繁更新的事实，例如制度、产品资料、字段定义和操作文档；重点是切分、元数据、权限、版本、召回与引用。Skills 更像可调用的任务能力，承载目标、输入输出契约、工具调用顺序、参数校验、异常处理和完成标准，而不是把大量事实硬编码进去。二者边界应通过变更频率、复用方式和可测试性划分：事实变化通常更新知识库，流程或工具行为变化更新 Skill。验证不能只做问答 Demo，应建立真实业务场景集，覆盖高频、长尾、权限、缺失信息、冲突版本和工具失败；用任务成功率、关键步骤正确率、引用支持率、越权率、人工返工率和成本延迟评估。还要做离线回归、线上抽样与失败案例闭环，防止“能回答”被误判为“能完成业务”。
+DeepAgents 的核心不是再写一个简单的“思考—调用工具”循环，而是提供一层可运行的 harness：Agent 可进行任务规划，把中间结果写入文件系统以减轻上下文压力，按需委派子 Agent，并通过权限控制限制工具和环境访问；底层运行时与 LangGraph 的状态、持久化和流程编排能力衔接。它解决的工程痛点包括长任务状态难维护、上下文不断膨胀、子任务边界不清以及工具权限难治理，具体能力可参考 [Deep Agents Overview](https://docs.langchain.com/oss/python/deepagents/overview)。但这些能力不等于任务一定可靠：规划可能走偏，文件状态可能过期，委派会增加延迟和成本，工具仍可能产生副作用。因此生产落地要为步骤设置超时、重试上限、幂等键和人工审批边界，隔离敏感凭据，并记录轨迹。验证时应分别测试任务完成率、工具调用正确率、恢复能力、成本、延迟和越权失败用例，再与单循环 Agent 做消融对比。
 
-**差距在哪**：浅层回答只做内容分类，深入回答还要定义边界、执行契约、权限与更新机制，并用真实任务指标验证覆盖而非只测生成文本。
+**差距在哪**：浅层只把 DeepAgents 当成带工具的 Agent，深层要解释 harness、上下文与委派机制、运行时关系、权限和失败模式，并给出可观测与评测方案。
 
----
 
 ## 这类题的答题模式
 

@@ -102,7 +102,7 @@ flowchart LR
 
 ### Q：如何验证 AI 方案确实提升了业务指标，而不是带来了副作用？
 
-> 来源：网易 AI Agent 开发实习（原题：验证 AI 提升游戏体验而非难度）【[阶跃星辰（Stepfun）- 大模型算法岗（Post-train）](https://www.nowcoder.com/discuss/926273007276814336)追问：如何衡量后训练带来的实际业务增益？】；本轮追问：如何验证模型融合后确实提升了 NDCG、召回率和最终业务指标？（[本轮追问](https://www.nowcoder.com/feed/main/detail/19d5ea0eda0e40de8a060ac516703c58)）；本轮追问：大模型对业务的冲击？每个业务后训练小模型思路？（[本轮追问](https://www.nowcoder.com/feed/main/detail/a11a3a9e0d824969b44db5bb2149ef9f)）；本轮追问：业务提效与AI标准化是否对立？（[本轮追问](https://www.nowcoder.com/feed/main/detail/c478feeef29340caac7b8c44d5a6c5e4)）；本轮追问：AI Coding 带来了哪些效率提升？（[携程 AI 应用开发一面（已oc）](https://www.nowcoder.com/feed/main/detail/2b1c35eace4a4bb3bd88ee669f163793)）；本轮追问：Agent 怎么在业务中提效？（[拼多多 复活赛 agent 二面](https://www.nowcoder.com/feed/main/detail/db1ac008584f43dd9bfab65b35ff695c)）；本轮追问：文章质量检测规则从哪里来、如何验证？（[携程 AI 应用开发二面（已oc）](https://www.nowcoder.com/feed/main/detail/781cfc04e3bc4697acf0a5c913543a28)）
+> 来源：网易 AI Agent 开发实习（原题：验证 AI 提升游戏体验而非难度）【[阶跃星辰（Stepfun）- 大模型算法岗（Post-train）](https://www.nowcoder.com/discuss/926273007276814336)追问：如何衡量后训练带来的实际业务增益？】；本轮追问：如何验证模型融合后确实提升了 NDCG、召回率和最终业务指标？（[本轮追问](https://www.nowcoder.com/feed/main/detail/19d5ea0eda0e40de8a060ac516703c58)）；本轮追问：大模型对业务的冲击？每个业务后训练小模型思路？（[本轮追问](https://www.nowcoder.com/feed/main/detail/a11a3a9e0d824969b44db5bb2149ef9f)）；本轮追问：业务提效与AI标准化是否对立？（[本轮追问](https://www.nowcoder.com/feed/main/detail/c478feeef29340caac7b8c44d5a6c5e4)）；本轮追问：AI Coding 带来了哪些效率提升？（[携程 AI 应用开发一面（已oc）](https://www.nowcoder.com/feed/main/detail/2b1c35eace4a4bb3bd88ee669f163793)）；本轮追问：Agent 怎么在业务中提效？（[拼多多 复活赛 agent 二面](https://www.nowcoder.com/feed/main/detail/db1ac008584f43dd9bfab65b35ff695c)）；本轮追问：文章质量检测规则从哪里来、如何验证？（[携程 AI 应用开发二面（已oc）](https://www.nowcoder.com/feed/main/detail/781cfc04e3bc4697acf0a5c913543a28)）；本轮追问：优化切分后，召回率得到了提升，那你们最终是怎么判断整个客服系统的回答效果是真的变好了，而不只是召回指标好看？（[27秋招-恒生电子AI面试-AI应用开发岗-26.9.23](https://www.nowcoder.com/feed/main/detail/724b6bc0f02b42e58ff7397be51df3b5)）；本轮追问：评测体系里有很多指标，哪个指标最能衡量系统是否达成目标？（[字节Agent开发后端 日常实习一面凉面](https://www.nowcoder.com/discuss/932295617999622144)）
 
 **新手答**：“看准确率提升了就行。”
 
@@ -220,7 +220,7 @@ flowchart LR
 
 ### Q：知识库 RAG 和智能客服 Agent 系统的成熟方案有哪些？标准方案的优点和局限性？
 
-> 来源：币安 AI大模型实习一面；本轮追问：整体结构参考了哪些业界方案？（[本轮追问](https://www.nowcoder.com/discuss/927381090602348544)）；本轮追问：RAG 有哪些问题？（[本轮追问](https://www.nowcoder.com/discuss/928253581973553152)）；本轮追问：做过技术方案吗？（[本轮追问](https://www.nowcoder.com/feed/main/detail/0a081f7c63464a39b9888c1af7b121ab)）
+> 来源：币安 AI大模型实习一面；本轮追问：整体结构参考了哪些业界方案？（[本轮追问](https://www.nowcoder.com/discuss/927381090602348544)）；本轮追问：RAG 有哪些问题？（[本轮追问](https://www.nowcoder.com/discuss/928253581973553152)）；本轮追问：做过技术方案吗？（[本轮追问](https://www.nowcoder.com/feed/main/detail/0a081f7c63464a39b9888c1af7b121ab)）；[杭州微链词元  AI应用开发](https://www.nowcoder.com/feed/main/detail/0fa200b70a5442f2aad559323802d889)；[字节全栈一面](https://www.nowcoder.com/feed/main/detail/a01aeac81ad342d88252f899c47f2dc4)
 
 **新手答**：“用 RAG 检索知识库，然后 LLM 回答。”
 
@@ -309,7 +309,7 @@ flowchart TB
 
 ## Q：Agent 项目如何从 Demo 进行企业级落地？从原型到生产需要补全哪些工程能力？
 
-> 来源：哆咔互娱 Agent开发实习一面 【[国际业务 Agent 一面](https://www.nowcoder.com/feed/main/detail/3c305b0c1565458ba05c9906322f5327)追问：无人化业务链路的自治边界】；本轮追问：你的经历主要集中在 Skill 开发，是否具备 Agent 工程落地经验？（[本轮追问](https://www.nowcoder.com/discuss/926528416512315392)）；[本轮来源](https://www.nowcoder.com/feed/main/detail/4dab7dac5d114250a5b8025bb05cf17f)；本轮追问：介绍 Codex Pi 的实现，以及 Agent 如何与业务结合并提效？（[本轮追问](https://www.nowcoder.com/feed/main/detail/9b4cee70522d4e7aa771e222aeb28169)）；本轮追问：Agent项目是用于业务提效的，还是可以复制到全公司维度？（[本轮追问](https://www.nowcoder.com/feed/main/detail/beae35cec366487a918abee5421216f2)）；[滴滴一些面经合集（算法）](https://www.nowcoder.com/feed/main/detail/37cae17c5f2a49ee81375721f53bbf9b)；本轮追问：视频生产是直接调用模型，还是组合素材和工程能力？（[携程 AI 应用开发二面（已oc）](https://www.nowcoder.com/feed/main/detail/781cfc04e3bc4697acf0a5c913543a28)）
+> 来源：哆咔互娱 Agent开发实习一面 【[国际业务 Agent 一面](https://www.nowcoder.com/feed/main/detail/3c305b0c1565458ba05c9906322f5327)追问：无人化业务链路的自治边界】；本轮追问：你的经历主要集中在 Skill 开发，是否具备 Agent 工程落地经验？（[本轮追问](https://www.nowcoder.com/discuss/926528416512315392)）；[本轮来源](https://www.nowcoder.com/feed/main/detail/4dab7dac5d114250a5b8025bb05cf17f)；本轮追问：介绍 Codex Pi 的实现，以及 Agent 如何与业务结合并提效？（[本轮追问](https://www.nowcoder.com/feed/main/detail/9b4cee70522d4e7aa771e222aeb28169)）；本轮追问：Agent项目是用于业务提效的，还是可以复制到全公司维度？（[本轮追问](https://www.nowcoder.com/feed/main/detail/beae35cec366487a918abee5421216f2)）；[滴滴一些面经合集（算法）](https://www.nowcoder.com/feed/main/detail/37cae17c5f2a49ee81375721f53bbf9b)；本轮追问：视频生产是直接调用模型，还是组合素材和工程能力？（[携程 AI 应用开发二面（已oc）](https://www.nowcoder.com/feed/main/detail/781cfc04e3bc4697acf0a5c913543a28)）；本轮追问：简历中的“企业级 RAG”应该如何理解？企业级 RAG 与学习型 Demo 有哪些不同？（[字节 Agent 秋招二面](https://www.nowcoder.com/discuss/932657562825027584)）
 
 **新手答**：“把 Demo 代码优化一下，加个前端界面，部署到服务器上就行了。”
 
@@ -380,7 +380,31 @@ graph LR
 
 视频生产通常采用“模型规划、工程执行”：模型生成选题、脚本、分镜和素材检索条件，系统从授权素材库获取画面，调用配音、字幕、图像或视频模型，再用编排与渲染链路合成。最后进行时长、音画同步、字幕、内容安全和版权来源校验；模型不可用时保留模板和素材拼接降级路径。
 
+
+企业级 RAG 不只是接入向量库，而是围绕数据治理和可验证性建设：按租户、角色和数据密级做采集与检索权限隔离，保留来源、版本和更新时间；通过混合检索、重排、引用约束降低召回偏差，并用离线评测、线上反馈和 Bad Case 回流持续验证效果。
+
 **差距在哪**：面试官考的是你对“工程成熟度”的认知。Demo 证明“能做”，生产证明“做得稳”。能列出从可靠性、可观测性到安全合规的系统清单，说明你有真实的落地思维而不只是跑通 Happy Path。
+
+---
+
+## Q：面向 C 端的 Agent 应用应该包含哪些架构和模块？
+
+> 来源：百度大模型研发工程师二面（2026-08-21）【[百度 - Agent 研发岗（架构方向）](https://www.nowcoder.com/discuss/926273622006665216)追问：何为 Agent 应用？C 端 Agent 的架构模块？】；[百度Agent二面，不看简历不问八股](https://www.nowcoder.com/feed/main/detail/c7f00d0e48aa4017911b46ed928d15f3)；本轮追问：如果把这个 Agent 做到网页端使用，你觉得应该如何设计？（[cvte应用软件开发一面](https://www.nowcoder.com/feed/main/detail/c2155d2308de452c8a6e3cf2bbb482f3)）；本轮追问：把本地 Coding Agent 做成多人使用的 SaaS，架构、创建、复用与销毁如何设计？（[9.15科大讯飞AI应用一面](https://www.nowcoder.com/feed/main/detail/aece93373f9c47ea95c831aef6471886)）；本轮追问：讲一下这个视觉的人工智能客服的全流程你觉得应该是怎么样的？（[杭州微链词元  AI应用开发](https://www.nowcoder.com/feed/main/detail/0fa200b70a5442f2aad559323802d889)）
+
+**新手答**：“前端接一个大模型，后端提供 RAG、Memory 和 Tools。”
+
+**高手答**：
+
+C 端 Agent 要同时回答“用户如何持续使用”和“任务如何可靠完成”。产品接入层包含账号、会话、流式交互、多模态输入、历史记录和反馈；Agent Runtime 负责 Context 装配、规划、工具循环、暂停恢复和预算；能力层提供搜索、RAG、Memory、业务 API 与 Sandbox；治理层负责权限、内容安全、隐私、审计、Eval、成本和灰度。
+
+与内部 Agent 相比，C 端还要处理弱网重连、跨设备会话、首屏/首 Token 延迟、用户插话和取消、工具操作确认、未成年人或敏感数据保护。高风险动作必须展示将执行什么、影响什么，并让用户确认；模型生成文本成功不等于业务任务成功，最终状态要以权威业务系统为准。
+
+指标也要分层：产品层看留存、任务完成率和投诉；Agent 层看步骤数、澄清率、工具正确率；系统层看 TTFT、P99、失败恢复和单任务成本。架构选择由目标任务决定，通用助手、办公 Agent 和 Coding Agent 不应复用同一套默认工具与权限。
+
+
+多人 SaaS 应按租户隔离账号、会话、权限、密钥和数据，为每次 Coding 任务创建带配额的临时 Sandbox，支持模板或快照复用，完成、超时或取消后回收并保留审计产物。视觉客服流程可为图片接入、预处理与 OCR/视觉识别、意图判断、知识库检索、工具执行、回复或转人工，并记录全链路结果供质检。
+
+**差距在哪**：新手只列模型组件，高手把产品交互、Runtime、业务能力和治理连成完整闭环，并能指出 C 端特有的体验与安全约束。
 
 ---
 
@@ -407,24 +431,6 @@ graph LR
 
 ---
 
-## Q：面向 C 端的 Agent 应用应该包含哪些架构和模块？
-
-> 来源：百度大模型研发工程师二面（2026-08-21）【[百度 - Agent 研发岗（架构方向）](https://www.nowcoder.com/discuss/926273622006665216)追问：何为 Agent 应用？C 端 Agent 的架构模块？】；[百度Agent二面，不看简历不问八股](https://www.nowcoder.com/feed/main/detail/c7f00d0e48aa4017911b46ed928d15f3)；本轮追问：如果把这个 Agent 做到网页端使用，你觉得应该如何设计？（[cvte应用软件开发一面](https://www.nowcoder.com/feed/main/detail/c2155d2308de452c8a6e3cf2bbb482f3)）
-
-**新手答**：“前端接一个大模型，后端提供 RAG、Memory 和 Tools。”
-
-**高手答**：
-
-C 端 Agent 要同时回答“用户如何持续使用”和“任务如何可靠完成”。产品接入层包含账号、会话、流式交互、多模态输入、历史记录和反馈；Agent Runtime 负责 Context 装配、规划、工具循环、暂停恢复和预算；能力层提供搜索、RAG、Memory、业务 API 与 Sandbox；治理层负责权限、内容安全、隐私、审计、Eval、成本和灰度。
-
-与内部 Agent 相比，C 端还要处理弱网重连、跨设备会话、首屏/首 Token 延迟、用户插话和取消、工具操作确认、未成年人或敏感数据保护。高风险动作必须展示将执行什么、影响什么，并让用户确认；模型生成文本成功不等于业务任务成功，最终状态要以权威业务系统为准。
-
-指标也要分层：产品层看留存、任务完成率和投诉；Agent 层看步骤数、澄清率、工具正确率；系统层看 TTFT、P99、失败恢复和单任务成本。架构选择由目标任务决定，通用助手、办公 Agent 和 Coding Agent 不应复用同一套默认工具与权限。
-
-**差距在哪**：新手只列模型组件，高手把产品交互、Runtime、业务能力和治理连成完整闭环，并能指出 C 端特有的体验与安全约束。
-
----
-
 ## Q：长文本内容安全审核如何区分“引用有害内容”与“表达有害立场”？
 
 > 来源：[中国电信风控 Agent 二面](https://www.nowcoder.com/feed/main/detail/22e18a3d20734429aec41b37744beadc)（2026-08-22）；本轮追问：如果让你设计一个“内容安全审核Agent”，怎么处理图文混合违规？（[小红书多模态秋招二面](https://www.nowcoder.com/discuss/930755993066041344)）；本轮追问：内容生产会遇到哪些平台风控？（[携程 AI 应用开发二面（已oc）](https://www.nowcoder.com/feed/main/detail/781cfc04e3bc4697acf0a5c913543a28)）
@@ -446,7 +452,7 @@ C 端 Agent 要同时回答“用户如何持续使用”和“任务如何可�
 
 ## Q：设计一个“输入网站、输出宣发内容”的 Agent，完整链路是什么？
 
-> 来源：百度大模型研发工程师二面（2026-08-21）；本轮追问：详细讲一下 Workflow / Multi-Agent 各 Stage 的输入输出，系统怎么处理的？（[Agent 开发面经](https://www.nowcoder.com/discuss/930572525178748928)）
+> 来源：百度大模型研发工程师二面（2026-08-21）；本轮追问：详细讲一下 Workflow / Multi-Agent 各 Stage 的输入输出，系统怎么处理的？（[Agent 开发面经](https://www.nowcoder.com/discuss/930572525178748928)）；[携程agent开发一面](https://www.nowcoder.com/feed/main/detail/0d590f82f4f243b180ee923860010b94)
 
 **新手答**：“爬取网站正文，拼接 Prompt，让模型生成标题和文案。”
 
@@ -479,6 +485,22 @@ Workflow可定义统一状态对象：采集输入URL与授权结果，输出正
 秒杀场景还要保护库存一致性：预热商品和库存，入口限流排队，使用原子扣减或预占库存防超卖；下单异步削峰，订单接口幂等，支付超时释放库存，并校验重复请求和风控规则。
 
 **差距在哪**：考察从容量评估到稳定性保护的完整链路。
+
+
+## Q：生成内容哪些环节需要人工审核，如何设计人机协同闭环？
+
+> 来源：[携程 AI 应用开发二面（已oc）](https://www.nowcoder.com/feed/main/detail/781cfc04e3bc4697acf0a5c913543a28)；本轮追问：如果让AI一次性生成成千上万行代码，代码审查（Code Review）应该交由AI自动审，还是由人工审核？人机审查的边界在哪里？（[9.20 汇川技术 数字化全栈工程师 一面](https://www.nowcoder.com/feed/main/detail/28032c48a90c4f69827704deb3fae34c)）
+
+**新手答**：“涉及事实准确性、敏感内容、品牌风险和最终发布的内容，通常需要运营人工审核。”
+
+**高手答**：
+
+人工审核不应覆盖所有内容，而应集中在高风险和机器不确定的环节：发布前审核事实、敏感主题、版权与隐私线索、品牌语气及关键业务结论；低风险内容可自动放行，并保留抽检。系统先用规则、分类器和模型评审做预筛，输出风险标签、证据片段和置信度，再按风险等级路由给运营、专业人员或升级负责人。审核结果要结构化记录为通过、修改、拒绝及原因，修改后的内容需再次校验，避免人工改坏或绕过安全检查。用抽检集、误放率、误拦率、处理时延、申诉率和线上事故复盘评估闭环；对重复问题回流提示词、知识库、策略和训练数据。还要控制权限、审计日志、隐私暴露和单点人工瓶颈，不能把人工审核当作绝对正确保证。
+
+
+对大段代码应采用人机分层：AI 先做格式、依赖、静态扫描、测试生成和逐文件风险摘要，必须在隔离环境编译运行并检查权限、数据访问和关键路径；人工聚焦架构变更、鉴权、并发、迁移、外部副作用及高风险告警，不能仅凭 AI 通过结论合并。高风险或测试覆盖不足时由人工强制签字，并保留差异、证据和审查记录。
+
+**差距在哪**：浅层回答只会说“敏感内容人工审核”，面试官考察的是风险分层、审核路由、可追溯反馈和人力成本之间的工程闭环。
 
 
 ## Q：设计一个群聊 Agent，如何同时处理权限、上下文和并行请求？
@@ -766,19 +788,6 @@ MCP 的价值是**跨 Host 复用、动态发现和协议标准化**，不是让
 
 ---
 
-## Q：生成内容哪些环节需要人工审核，如何设计人机协同闭环？
-
-> 来源：[携程 AI 应用开发二面（已oc）](https://www.nowcoder.com/feed/main/detail/781cfc04e3bc4697acf0a5c913543a28)
-
-**新手答**：“涉及事实准确性、敏感内容、品牌风险和最终发布的内容，通常需要运营人工审核。”
-
-**高手答**：
-
-人工审核不应覆盖所有内容，而应集中在高风险和机器不确定的环节：发布前审核事实、敏感主题、版权与隐私线索、品牌语气及关键业务结论；低风险内容可自动放行，并保留抽检。系统先用规则、分类器和模型评审做预筛，输出风险标签、证据片段和置信度，再按风险等级路由给运营、专业人员或升级负责人。审核结果要结构化记录为通过、修改、拒绝及原因，修改后的内容需再次校验，避免人工改坏或绕过安全检查。用抽检集、误放率、误拦率、处理时延、申诉率和线上事故复盘评估闭环；对重复问题回流提示词、知识库、策略和训练数据。还要控制权限、审计日志、隐私暴露和单点人工瓶颈，不能把人工审核当作绝对正确保证。
-
-**差距在哪**：浅层回答只会说“敏感内容人工审核”，面试官考察的是风险分层、审核路由、可追溯反馈和人力成本之间的工程闭环。
-
-
 ## Q：视频处理系统如何设计？从上传到转码、存储和分发
 
 > 来源：[字节 AI 全栈一面（飞书）](https://www.nowcoder.com/discuss/931555466247700480)
@@ -792,6 +801,21 @@ MCP 的价值是**跨 Host 复用、动态发现和协议标准化**，不是让
 **差距在哪**：浅层回答只描述上传、转码、播放的顺序，面试官还会考察异步任务状态机、幂等与补偿、对象存储和 CDN 边界、安全校验、失败重试及端到端质量评估。
 
 ---
+
+---
+
+## Q：前端手动入口与 Agent Chat 入口如何划分职责和交互边界？
+
+> 来源：[百度 AIGC 多模态智能体算法工程师二面](https://www.nowcoder.com/feed/main/detail/2d033fd6daa04e2aaad2282b75531bbc)
+
+**新手答**：“手动入口负责明确、可控的操作，Agent Chat 负责理解自然语言并编排多个步骤，关键动作仍应回到前端确认。”
+
+**高手答**：
+
+前端手动入口适合高频、确定性和强可控操作，例如查询、表单提交、审批与精确配置；Agent Chat适合目标不清、需要解释、检索和跨系统编排的任务。两者不应各自实现业务规则，而应共享权限、领域服务和审计接口。Agent可以负责意图识别、计划生成和工具调用，但涉及删除、付款、发布、权限变更等高风险动作，必须展示结构化预览、影响范围和参数，并由用户确认后执行。前端还要处理流式状态、超时、撤销、重试和人工接管；后端通过幂等键、权限二次校验和操作日志防止重复或越权。用任务成功率、误操作率、确认转化率、延迟和人工接管率评估边界是否合理。
+
+**差距在哪**：浅层只停留在“手动负责确定性、Agent负责自然语言”，深入回答还要明确共享后端能力、确认与权限边界、失败恢复和量化评估，考查的是产品交互与系统安全的统一设计。
+
 
 ## 这类题的答题模式
 

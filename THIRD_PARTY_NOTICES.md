@@ -108,3 +108,17 @@ The answers added from the 2026-09-15 through 2026-09-21 interview audit were in
 - [Relaxed On-Policy Distillation](https://arxiv.org/abs/2603.11137) and [Trust Region On-Policy Distillation](https://arxiv.org/abs/2606.01249) — OPD instability, teacher/student distribution mismatch, and stabilization mechanisms.
 
 No upstream prose, code, datasets, diagrams, or benchmark results are reproduced. Framework behavior remains tied to the linked documentation; architecture and evaluation recommendations are independent engineering analysis.
+
+## Weekly Interview Answer References (2026-09-29)
+
+The answers added from the 2026-09-22 through 2026-09-29 interview audit were independently written and checked against these primary references:
+
+- [Model Context Protocol 2026-07-28 Transports](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports) — current stdio and Streamable HTTP bindings, framing, metadata, cancellation, and backward-compatibility boundaries.
+- [LangGraph Graph API](https://docs.langchain.com/oss/python/langgraph/graph-api) and [Deep Agents Overview](https://docs.langchain.com/oss/python/deepagents/overview) — conditional routing, graph state updates, harness capabilities, context management, delegation, permissions, and runtime boundaries.
+- [Spring AI Reference](https://docs.spring.io/spring-ai/reference/) — Java model and vector-store integration abstractions used to contrast framework and direct-adapter approaches.
+- [Muon official repository](https://github.com/KellerJordan/Muon) — Muon parameter scope, auxiliary Adam usage, orthogonalized updates, and tuning guidance.
+- [Reinforcement Learning from Verifier Feedback](https://openreview.net/pdf?id=5WtovCb1ZE) — verifier-derived reward training and the RLVF terminology boundary.
+- [OpenAI CLIP repository and model card](https://github.com/openai/CLIP) — contrastive image-text training, released encoders, zero-shot use, and documented limitations.
+- [LLaMA](https://ai.meta.com/research/publications/llama-open-and-efficient-foundation-language-models/), [Llama 2](https://ai.meta.com/research/publications/llama-2-open-foundation-and-fine-tuned-chat-models/), and [Llama 3](https://ai.meta.com/research/publications/the-llama-3-herd-of-models) — architecture, training-data, post-training, tokenizer, context, tool-use, and release evolution across the three generations.
+
+No upstream prose, code, datasets, diagrams, or benchmark results are reproduced. Version-specific behavior remains tied to the linked documentation; the surrounding explanations, comparisons, and engineering recommendations are independent analysis.

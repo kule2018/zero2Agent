@@ -17,7 +17,7 @@ Agent Demo 能完成一次工具调用，不代表它能承受 Worker 重启、�
 
 ## Q：一次 Agent 请求的完整执行链路是什么？
 
-> 来源：[字节跳动 Agent 后端开发业务终面](https://www.nowcoder.com/feed/main/detail/1dd33c4b7bda453a82f7d645bde7f3ff) / [阿里控股 Agent Infra 二面](https://www.nowcoder.com/feed/main/detail/627844d5923149b6ac46a631b2b41d5a) / Agent Runtime 完整管线设计高频题【字节火山引擎 Managed Agent 一面同题】【阿里 Agent Infra 一面题库同题】【[深信服Agent开发实习生一面二面，长时间被吊着，最终被横向掉了](https://www.nowcoder.com/feed/main/detail/14b2c379ae434062a009aefea9fc5df9)追问：处理流程可以讲一下吗？整体链路是怎样的？】【[百度Agent一面](https://www.nowcoder.com/feed/main/detail/72858aade19d443facc870fea8bb134f)追问：如果问某上市公司去年毛利率下降，Agent 收到 Prompt 后的完整流程是什么？】；本轮追问：一个用户请求进入系统后，Skill 的完整诊断流程是什么？（[本轮追问](https://www.nowcoder.com/discuss/926528416512315392)）；[本轮来源](https://www.nowcoder.com/discuss/927597050630270976)；本轮追问：介绍一下 AI 问数平台的整体架构和链路。（[本轮追问](https://www.nowcoder.com/feed/main/detail/14fe3975c0464b02bb58b24be1b63a21)）；[本轮来源](https://www.nowcoder.com/feed/main/detail/77660a0c109d42f89001980a8f94c1a6)；本轮追问：工具执行器这块能不能再展开讲一下？（[本轮追问](https://www.nowcoder.com/feed/main/detail/bb8c28105f364770b57ff5eb5649cc60)）；本轮追问：从用户上传视频到最终拿到分析结果，完整链路是什么？（[本轮追问](https://www.nowcoder.com/feed/main/detail/ed25d2f60ddc4436b0139a7c52e62a61)）；本轮追问：DeepAgents 的结构是怎么样的？它的主流程和核心部分是什么？（[本轮追问](https://www.nowcoder.com/feed/main/detail/fbd28b541e1b4f498a58e84efb7314cf)）；[淘天AI应用开发二面](https://www.nowcoder.com/feed/main/detail/d5d1f688dae5496abbce783aa28d6731)
+> 来源：[字节跳动 Agent 后端开发业务终面](https://www.nowcoder.com/feed/main/detail/1dd33c4b7bda453a82f7d645bde7f3ff) / [阿里控股 Agent Infra 二面](https://www.nowcoder.com/feed/main/detail/627844d5923149b6ac46a631b2b41d5a) / Agent Runtime 完整管线设计高频题【字节火山引擎 Managed Agent 一面同题】【阿里 Agent Infra 一面题库同题】【[深信服Agent开发实习生一面二面，长时间被吊着，最终被横向掉了](https://www.nowcoder.com/feed/main/detail/14b2c379ae434062a009aefea9fc5df9)追问：处理流程可以讲一下吗？整体链路是怎样的？】【[百度Agent一面](https://www.nowcoder.com/feed/main/detail/72858aade19d443facc870fea8bb134f)追问：如果问某上市公司去年毛利率下降，Agent 收到 Prompt 后的完整流程是什么？】；本轮追问：一个用户请求进入系统后，Skill 的完整诊断流程是什么？（[本轮追问](https://www.nowcoder.com/discuss/926528416512315392)）；[本轮来源](https://www.nowcoder.com/discuss/927597050630270976)；本轮追问：介绍一下 AI 问数平台的整体架构和链路。（[本轮追问](https://www.nowcoder.com/feed/main/detail/14fe3975c0464b02bb58b24be1b63a21)）；[本轮来源](https://www.nowcoder.com/feed/main/detail/77660a0c109d42f89001980a8f94c1a6)；本轮追问：工具执行器这块能不能再展开讲一下？（[本轮追问](https://www.nowcoder.com/feed/main/detail/bb8c28105f364770b57ff5eb5649cc60)）；本轮追问：从用户上传视频到最终拿到分析结果，完整链路是什么？（[本轮追问](https://www.nowcoder.com/feed/main/detail/ed25d2f60ddc4436b0139a7c52e62a61)）；本轮追问：DeepAgents 的结构是怎么样的？它的主流程和核心部分是什么？（[本轮追问](https://www.nowcoder.com/feed/main/detail/fbd28b541e1b4f498a58e84efb7314cf)）；[淘天AI应用开发二面](https://www.nowcoder.com/feed/main/detail/d5d1f688dae5496abbce783aa28d6731)；[阿里云一面](https://www.nowcoder.com/feed/main/detail/ceade00d742046d0bef6bee7fe7a7aad)
 
 **新手答**：“用户请求模型，模型调用工具，拿到结果后继续推理。”
 
@@ -43,7 +43,7 @@ Agent Demo 能完成一次工具调用，不代表它能承受 Worker 重启、�
 
 ## Q：如果让你设计一个 Agent Runtime，你会怎么拆？
 
-> 来源：Agent Infra / 平台工程系统设计高频题 / [字节中国交易与广告 AI 应用开发一面](https://www.nowcoder.com/feed/main/detail/b34f6902e8544fe2953696ed52e49dba)【阿里 Agent Infra 一面题库追问：Runtime 定义、Framework 边界与无状态 Worker】【[百度 - Agent 研发岗（架构方向）](https://www.nowcoder.com/discuss/926273622006665216)追问：通用 Agent Runtime（兼容多种大模型）如何设计？】；本轮追问：为什么要独立设计一套 runtime，而不是直接以 skill 的形式集成在别人的 agent 上？（[本轮追问](https://www.nowcoder.com/feed/main/detail/77660a0c109d42f89001980a8f94c1a6)）；本轮追问：如果让你设计多个Agent交互完成工作，你怎么设计？（[本轮追问](https://www.nowcoder.com/feed/main/detail/b3ca025c64914a259b878ede711b6aed)）；本轮追问：Agent Runtime是什么？（[本轮追问](https://www.nowcoder.com/feed/main/detail/cd9443129c2a4b05ad4e6b630bf46ad6)）；本轮追问：如果业务方只提供服务目标和流量意图，由 Agent 全面托管后续操作，你会如何设计这套系统？（[9.21 蚂蚁二面](https://www.nowcoder.com/feed/main/detail/52b419448b854e24bbdf41ca9e6ffe06)）；本轮追问：如果让你设计一个通用Agent Runtime，兼容多个模型厂商，怎么抽象？（[百度Agent二面，不看简历不问八股](https://www.nowcoder.com/feed/main/detail/c7f00d0e48aa4017911b46ed928d15f3)）；本轮追问：你如何理解 Agent 运行治理/编排引擎？（[度小满一面](https://www.nowcoder.com/feed/main/detail/41baab8c631647568203ebfaf3898574)）；本轮追问：如果让你设计一个“多屏互动Agent”，协调仪表盘、中控、HUD，你会怎么做？（[蔚来——大模型算法岗（智能座舱/自动驾驶）实习一面](https://www.nowcoder.com/discuss/930755708008558592)）
+> 来源：Agent Infra / 平台工程系统设计高频题 / [字节中国交易与广告 AI 应用开发一面](https://www.nowcoder.com/feed/main/detail/b34f6902e8544fe2953696ed52e49dba)【阿里 Agent Infra 一面题库追问：Runtime 定义、Framework 边界与无状态 Worker】【[百度 - Agent 研发岗（架构方向）](https://www.nowcoder.com/discuss/926273622006665216)追问：通用 Agent Runtime（兼容多种大模型）如何设计？】；本轮追问：为什么要独立设计一套 runtime，而不是直接以 skill 的形式集成在别人的 agent 上？（[本轮追问](https://www.nowcoder.com/feed/main/detail/77660a0c109d42f89001980a8f94c1a6)）；本轮追问：如果让你设计多个Agent交互完成工作，你怎么设计？（[本轮追问](https://www.nowcoder.com/feed/main/detail/b3ca025c64914a259b878ede711b6aed)）；本轮追问：Agent Runtime是什么？（[本轮追问](https://www.nowcoder.com/feed/main/detail/cd9443129c2a4b05ad4e6b630bf46ad6)）；本轮追问：如果业务方只提供服务目标和流量意图，由 Agent 全面托管后续操作，你会如何设计这套系统？（[9.21 蚂蚁二面](https://www.nowcoder.com/feed/main/detail/52b419448b854e24bbdf41ca9e6ffe06)）；本轮追问：如果让你设计一个通用Agent Runtime，兼容多个模型厂商，怎么抽象？（[百度Agent二面，不看简历不问八股](https://www.nowcoder.com/feed/main/detail/c7f00d0e48aa4017911b46ed928d15f3)）；本轮追问：你如何理解 Agent 运行治理/编排引擎？（[度小满一面](https://www.nowcoder.com/feed/main/detail/41baab8c631647568203ebfaf3898574)）；本轮追问：如果让你设计一个“多屏互动Agent”，协调仪表盘、中控、HUD，你会怎么做？（[蔚来——大模型算法岗（智能座舱/自动驾驶）实习一面](https://www.nowcoder.com/discuss/930755708008558592)）；本轮追问：第一个实习中的 Agent Harness 服务什么场景，Runtime、Workflow 和 Node 如何分层？（[9.15科大讯飞AI应用一面](https://www.nowcoder.com/feed/main/detail/aece93373f9c47ea95c831aef6471886)）；本轮追问：Runtime 适配时，事件是怎么适配的？ / 除了事件，Runtime 还需要适配什么？（[快手大模型agent研发一面](https://www.nowcoder.com/discuss/932315325276618752)）
 
 **新手答**：“接入 LLM，再提供工具、Memory 和日志，最后部署到 Kubernetes。”
 
@@ -72,13 +72,16 @@ LangChain、LangGraph 等 Framework 主要提供 Agent/Graph 的开发抽象；R
 
 若业务只给目标和流量意图，Runtime需增加意图解析、计划生成、策略审批与可回滚执行；多模型通过统一消息、工具调用和流式事件协议接入，适配器屏蔽厂商差异。编排层用状态机或DAG协调多Agent，按能力路由并校验权限；多屏场景以设备能力注册和事件总线同步仪表盘、中控、HUD，关键动作保留人工确认。
 
+
+实习中的 Harness 可理解为包住一次模型或工具调用的执行适配层，统一注入上下文、重试、超时、鉴权和追踪。Runtime 管生命周期与恢复，Workflow 表达业务编排和依赖，Node 是可重试的原子步骤。事件适配器把厂商回调映射为统一事件，保留 run/step 标识、顺序、错误和幂等键；还需适配模型协议、工具接口、状态存储、权限、沙箱及观测数据。
+
 **差距在哪**：新手罗列组件，高手先定义执行语义，再说明状态所有权、并发控制和版本边界。
 
 ---
 
 ## Q：为什么需要 Checkpoint，恢复时从哪里继续？
 
-> 来源：长任务恢复与状态管理高频题 / [字节数据平台 Agent 一面](https://www.nowcoder.com/feed/main/detail/f5f840632a19417b91b8987762427a6a) / [MINISO Agent 开发实习一面](https://www.nowcoder.com/feed/main/detail/f844a4ac20be44bc9b3f756bd0ebb84c) / [哔哩哔哩秋招一面](https://www.nowcoder.com/feed/main/detail/87eadf9db3b14bb6912064ee79267c30)【阿里 Agent Infra 一面题库同题：状态管理、Checkpoint 与保存时机】【[拼多多 - Agent 开发岗（工程化 + 数据库）](https://www.nowcoder.com/discuss/926273867092430848)追问：断点恢复（服务重启后加载未完成状态）？】【[深圳tuitti视界之外实习一面](https://www.nowcoder.com/feed/main/detail/9b1329caf4b64389a0ab666585bda045)追问：这时候你是怎样恢复图的运行状态的？】；本轮追问：视频级 Checkpoint 和目标级 Checkpoint 为什么要分开？（[本轮追问](https://www.nowcoder.com/feed/main/detail/ed25d2f60ddc4436b0139a7c52e62a61)）
+> 来源：长任务恢复与状态管理高频题 / [字节数据平台 Agent 一面](https://www.nowcoder.com/feed/main/detail/f5f840632a19417b91b8987762427a6a) / [MINISO Agent 开发实习一面](https://www.nowcoder.com/feed/main/detail/f844a4ac20be44bc9b3f756bd0ebb84c) / [哔哩哔哩秋招一面](https://www.nowcoder.com/feed/main/detail/87eadf9db3b14bb6912064ee79267c30)【阿里 Agent Infra 一面题库同题：状态管理、Checkpoint 与保存时机】【[拼多多 - Agent 开发岗（工程化 + 数据库）](https://www.nowcoder.com/discuss/926273867092430848)追问：断点恢复（服务重启后加载未完成状态）？】【[深圳tuitti视界之外实习一面](https://www.nowcoder.com/feed/main/detail/9b1329caf4b64389a0ab666585bda045)追问：这时候你是怎样恢复图的运行状态的？】；本轮追问：视频级 Checkpoint 和目标级 Checkpoint 为什么要分开？（[本轮追问](https://www.nowcoder.com/feed/main/detail/ed25d2f60ddc4436b0139a7c52e62a61)）；[恒生电子技术岗ai面](https://www.nowcoder.com/feed/main/detail/49a60657cf63400897542e731c3feae4)；[快手大模型agent研发一面](https://www.nowcoder.com/discuss/932315325276618752)；本轮追问：为什么需要用户授权？中断以后怎样继续任务，保存了哪些状态？Agent 自己有没有记录执行状态？（[度小满 AI 全栈二面](https://www.nowcoder.com/discuss/931952631340077056)）；本轮追问：编码项目的正式文件如何保存？实例销毁后怎样继续使用？（[9.15科大讯飞AI应用一面](https://www.nowcoder.com/feed/main/detail/aece93373f9c47ea95c831aef6471886)）
 
 **新手答**：“每一步保存消息，Pod 挂了以后读取最后一条继续执行。”
 
@@ -98,7 +101,38 @@ Checkpoint 应围绕一致性边界保存，而不是机械地“每轮保存一
 
 Worker 中断时还要验证 Checkpoint 之后的事件是否完整、Artifact 是否已原子提交、原 Worker 的 lease 是否失效。失败点重试不是从某个函数行号继续，而是从最近的**可验证业务边界**重建输入；过期 Worker 晚到的结果必须被 fencing token 或状态版本拒绝。
 
+
+恢复前还要校验用户授权、租约和权限是否仍有效，不能仅凭 Checkpoint 自动继续。正式代码、配置和产物应提交到 Git、对象存储或持久化工作区，Checkpoint 只保存版本、路径和校验信息；实例销毁后按这些引用重新挂载或拉取。
+
 **差距在哪**：新手把 Checkpoint 当消息快照，高手能处理快照之后的事件、并发恢复和不确定副作用。
+
+---
+
+## Q：Agent Sandbox 解决什么问题，为什么容器不一定够？
+
+> 来源：[荣耀 AI Infra 一面](https://www.nowcoder.com/feed/main/detail/60ab2e3a45074b7391199acb9b5c6ca3) / [百度 AI Infra 面经](https://www.nowcoder.com/feed/main/detail/436228d68ccb4ec78d08644bc9227dec) / [互联网金融 Agent 开发三面](https://www.nowcoder.com/feed/main/detail/88c55ee65af04ac98c218b9d17c47a71) / 代码执行与隔离设计高频题【阿里 Agent Infra 一面题库追问：隔离选型、资源约束与委托身份】；本轮追问：一个需求直接由Agent交付有什么问题？（[本轮追问](https://www.nowcoder.com/feed/main/detail/beae35cec366487a918abee5421216f2)）；[9.15科大讯飞AI应用一面](https://www.nowcoder.com/feed/main/detail/aece93373f9c47ea95c831aef6471886)
+
+**新手答**：“Docker 有 Namespace 和 Cgroup，可以安全运行模型生成的代码。”
+
+**高手答**：
+
+Sandbox 运行的是不可信代码，目标不只是限制 CPU 和内存，还要控制文件系统、网络、系统调用、凭据、进程树、磁盘和执行时间。容器共享宿主机内核，隔离强度取决于 user namespace、capabilities、seccomp、SELinux/AppArmor 和宿主配置，不能把“用了 Docker”直接等同于安全。
+
+| 场景 | 可选隔离 | 主要代价 |
+|------|---------|---------|
+| 内部只读工具 | 加固容器 | 隔离较轻，启动快 |
+| 多租户代码执行 | gVisor / Kata | 兼容性或启动开销 |
+| 高风险不可信代码 | MicroVM | 镜像、池化和运维成本 |
+
+无论采用哪种方案，都应使用短期身份、只读根文件系统、默认拒绝网络、资源上限和硬 Deadline。复用预热 Sandbox 可以降低冷启动，但必须证明租户间文件、进程、缓存和凭据已经清理；高风险任务更适合一次性销毁环境。
+
+当 Agent 代表用户调用外部系统时，Runtime 应把已认证用户映射为短期、限定 audience/scope 的委托凭证，并在受控传输层注入；长期密钥、刷新令牌和授权决策不能进入 Prompt。模型只提出 Tool Call，Runtime 仍要按用户、租户、工具和资源重新做 AuthZ，高风险操作再绑定审批范围与审计记录。
+
+进程地址空间隔离只能阻止普通进程直接读取彼此内存，不等于完整安全边界；容器仍要面对共享内核、错误授权和网络外泄等攻击面。Namespace 负责隔离“看见什么”，Cgroup 负责约束“能用多少”，两者也都不能替代系统调用和身份权限控制。
+
+隔离单元要与信任边界对齐：高风险且不可信的代码通常按 Run 或 Task 创建一次性 Sandbox，不因为属于同一用户就复用全部环境。若为了性能按用户或租户复用预热实例，必须将工作区、进程树、网络、凭证和资源计量继续按 Task 分区，并在复用前执行可验证的清理。
+
+**差距在哪**：新手只比较容器技术名称，高手从威胁模型、信任等级和清理边界选择隔离方案。
 
 ---
 
@@ -148,34 +182,6 @@ PENDING → DISPATCHED → RUNNING → SUCCEEDED
 对支付、发消息、删除资源等操作还应增加审批、操作分级和审计。Saga 补偿也不等于回滚，补偿本身可能失败并且必须幂等。
 
 **差距在哪**：新手只说“去重”，高手知道最危险的是执行结果未知，并能按下游能力选择事务、对账或人工介入。
-
----
-
-## Q：Agent Sandbox 解决什么问题，为什么容器不一定够？
-
-> 来源：[荣耀 AI Infra 一面](https://www.nowcoder.com/feed/main/detail/60ab2e3a45074b7391199acb9b5c6ca3) / [百度 AI Infra 面经](https://www.nowcoder.com/feed/main/detail/436228d68ccb4ec78d08644bc9227dec) / [互联网金融 Agent 开发三面](https://www.nowcoder.com/feed/main/detail/88c55ee65af04ac98c218b9d17c47a71) / 代码执行与隔离设计高频题【阿里 Agent Infra 一面题库追问：隔离选型、资源约束与委托身份】；本轮追问：一个需求直接由Agent交付有什么问题？（[本轮追问](https://www.nowcoder.com/feed/main/detail/beae35cec366487a918abee5421216f2)）
-
-**新手答**：“Docker 有 Namespace 和 Cgroup，可以安全运行模型生成的代码。”
-
-**高手答**：
-
-Sandbox 运行的是不可信代码，目标不只是限制 CPU 和内存，还要控制文件系统、网络、系统调用、凭据、进程树、磁盘和执行时间。容器共享宿主机内核，隔离强度取决于 user namespace、capabilities、seccomp、SELinux/AppArmor 和宿主配置，不能把“用了 Docker”直接等同于安全。
-
-| 场景 | 可选隔离 | 主要代价 |
-|------|---------|---------|
-| 内部只读工具 | 加固容器 | 隔离较轻，启动快 |
-| 多租户代码执行 | gVisor / Kata | 兼容性或启动开销 |
-| 高风险不可信代码 | MicroVM | 镜像、池化和运维成本 |
-
-无论采用哪种方案，都应使用短期身份、只读根文件系统、默认拒绝网络、资源上限和硬 Deadline。复用预热 Sandbox 可以降低冷启动，但必须证明租户间文件、进程、缓存和凭据已经清理；高风险任务更适合一次性销毁环境。
-
-当 Agent 代表用户调用外部系统时，Runtime 应把已认证用户映射为短期、限定 audience/scope 的委托凭证，并在受控传输层注入；长期密钥、刷新令牌和授权决策不能进入 Prompt。模型只提出 Tool Call，Runtime 仍要按用户、租户、工具和资源重新做 AuthZ，高风险操作再绑定审批范围与审计记录。
-
-进程地址空间隔离只能阻止普通进程直接读取彼此内存，不等于完整安全边界；容器仍要面对共享内核、错误授权和网络外泄等攻击面。Namespace 负责隔离“看见什么”，Cgroup 负责约束“能用多少”，两者也都不能替代系统调用和身份权限控制。
-
-隔离单元要与信任边界对齐：高风险且不可信的代码通常按 Run 或 Task 创建一次性 Sandbox，不因为属于同一用户就复用全部环境。若为了性能按用户或租户复用预热实例，必须将工作区、进程树、网络、凭证和资源计量继续按 Task 分区，并在复用前执行可验证的清理。
-
-**差距在哪**：新手只比较容器技术名称，高手从威胁模型、信任等级和清理边界选择隔离方案。
 
 ---
 
@@ -262,6 +268,36 @@ Router 可以是进程内库、Workflow 节点或独立服务。低延迟、策�
 
 ---
 
+## Q：大量本地端 Agent 与云端 Agent 如何协同？身份、状态、离线和任务迁移边界怎么设计？
+
+> 来源：[小红书 Agent 开发二面](https://www.nowcoder.com/feed/main/detail/9f7361c709f4413396988b4f334a0d6f) / [互联网金融 Agent 开发三面](https://www.nowcoder.com/feed/main/detail/88c55ee65af04ac98c218b9d17c47a71)；本轮追问：当前 Agent 在本地运行，如果迁移到云端或服务器，整体架构应该如何设计？可以分成哪些层？还需要补充什么？（[字节剪映AI应用开发一面](https://www.nowcoder.com/feed/main/detail/7211e82c75284d23a89b569cd9dc289d)）
+
+**新手答**：“端侧断网时先缓存，联网后同步到云端；复杂任务都放云上跑。”
+
+**高手答**：
+
+先按数据所有权拆分，不能做一个“双向同步所有状态”的大接口：
+
+| 状态 | 权威方 | 离线策略 |
+|------|--------|----------|
+| 用户身份、授权和配额 | 云端控制面 | 端侧持有短期、限定 scope 的快照，过期后降权或停止高风险动作 |
+| 设备能力、实时传感器和本地文件 | 端侧 | 本地读取，按最小必要原则上传摘要或 Artifact 引用 |
+| Run 事件、Checkpoint 和副作用 | 创建该 Run 的控制面 | 用单调序号、幂等键和 lease 同步，不能靠最后写入覆盖 |
+| 模型、Prompt、Tool 和策略版本 | 云端发布面 | 端侧缓存已签名版本，离线期间固定版本运行 |
+
+断网时端侧只能执行预先授权、可撤销、风险受限的动作，并把事件写入有界本地队列。恢复连接后先做身份续期和版本协商，再按 `run_id + event_seq + execution_id` 上传；服务端逐条确认，重复事件幂等吸收，冲突进入显式仲裁。KubeEdge 的 [EdgeHub](https://kubeedge.io/docs/architecture/edge/edgehub/)和 [Device Controller](https://kubeedge.io/docs/architecture/cloud/device_controller/)展示了端云连接、上/下行状态和 desired/reported state 分离，但 Agent 的用户授权与副作用语义仍需业务层自己实现。
+
+任务迁移只在语义 Checkpoint 处发生：冻结旧执行者、提交工作区/Artifact 清单、释放 lease，新执行者取得 fencing token 后校验模型与工具版本，再查询未知副作用并继续。没有可迁移状态的本地进程应从可验证步骤重建，而不是复制内存快照后假定外部世界没有变化。
+
+从本地迁到云端前先做能力与数据分类：可携带的是结构化 Run State、已授权 Artifact 和版本化执行契约；设备私钥、本地绝对路径、未授权文件与活进程不直接上传。云端先验证目标 Tool/模型版本和数据驻留约束，不兼容时应停在已验证 Checkpoint 并显式降级，而不是让云端在缺失上下文时猜测继续。
+
+
+可进一步分层为端侧运行时与设备适配层、端云连接与消息层、云端控制面、任务执行与状态存储层，以及模型工具发布、安全审计和可观测性层。迁移前还应补充协议兼容、密钥管理、租户隔离、断点恢复演练和回滚策略，明确哪些状态可迁移、哪些只能重新获取。
+
+**差距在哪**：新手只有“缓存后同步”，高手能定义权威状态、离线权限、冲突协议和任务唯一执行权。
+
+---
+
 ## Q：Agent 平台或 Runtime 出现新框架时，如何评估迁移收益、兼容老旧服务并决定是否淘汰旧方案？
 
 > 来源：[虾皮 Agent 二面](https://www.nowcoder.com/feed/main/detail/345b668e35a9451bb397a9189dfdc943) / [电商 Agent 三面](https://www.nowcoder.com/feed/main/detail/b6b453976c2d4e43a872054d695c2fe2)；本轮追问：线上收益多大？是否显著？实验是否推全？（[本轮追问](https://www.nowcoder.com/discuss/927381090602348544)）
@@ -284,6 +320,21 @@ Router 可以是进程内库、Workflow 节点或独立服务。低延迟、策�
 **差距在哪**：新手把迁移当换 SDK，高手会治理协议、在途状态、双轨证据、旧服务适配和退出成本。
 
 ---
+
+## Q：Agent 如何实现主动向用户推送消息？
+
+> 来源：[9.8 小厂 agent开发实习 面经](https://www.nowcoder.com/feed/main/detail/2f4e4cde4e524a16aae5f55a89c49273)；本轮追问：医院里大家排队买药取药，屏幕上轮播患者名字；现在要设计一个 PC 页面实现类似的轮播通知，每个用户看到自己的轮播信息，用户之间的信息相互隔离。后端通过实时数仓的 MQ 接收每秒推送的消息，后端消费后发送给前端，前端轮播展示最近 20 条。这个功能你会如何设计和实现？（[(秋招) 9.16 字节中交广 - 交易与广告业务 - AI全栈开发工程师](https://www.nowcoder.com/discuss/932587389027962880)）
+
+**新手答**：由事件或定时任务触发 Agent，再通过消息通道发送结果。
+
+**高手答**：
+
+事件总线接收业务事件，Scheduler 创建带幂等键的 run，Runtime 执行后把通知投递到 WebSocket、SSE、站内信或短信。消息服务负责模板、偏好、重试和回执；用 outbox 保证状态与消息一致，去重避免重复推送，失败进入死信并支持取消和审计。
+
+
+按用户或屏幕建立租户/用户隔离的订阅主题，消费 MQ 后按 userId 路由到对应 WebSocket/SSE 连接，服务端校验鉴权，不能广播全量消息。前端维护环形队列，仅保留最近 20 条并按序号去重；后端设置消费组、断线重连补偿、背压和积压告警，验证隔离、顺序、重复与断线恢复。
+
+**差距在哪**：考察事件驱动、异步执行和通知可靠性。
 
 ## Q：如何让 Agent 执行过程可观测、可调试？
 
@@ -386,32 +437,18 @@ Infra 不会直接提高基础模型智力，但会扩大模型可可靠利用�
 
 ---
 
-## Q：大量本地端 Agent 与云端 Agent 如何协同？身份、状态、离线和任务迁移边界怎么设计？
+## Q：如何根据安全性、性能、故障影响范围和成本选择服务隔离层级？
 
-> 来源：[小红书 Agent 开发二面](https://www.nowcoder.com/feed/main/detail/9f7361c709f4413396988b4f334a0d6f) / [互联网金融 Agent 开发三面](https://www.nowcoder.com/feed/main/detail/88c55ee65af04ac98c218b9d17c47a71)
+> 来源：[【面经】字节/AI 应用工程师 一面挂经……](https://www.nowcoder.com/discuss/933023499399024640)
 
-**新手答**：“端侧断网时先缓存，联网后同步到云端；复杂任务都放云上跑。”
+**新手答**：“根据数据敏感度、性能要求、故障影响范围和预算，在进程、容器、虚拟机或物理机之间选择合适的隔离级别。”
 
 **高手答**：
 
-先按数据所有权拆分，不能做一个“双向同步所有状态”的大接口：
+先按威胁模型和故障半径定义目标：同一进程适合低风险、低成本场景，但内存错误或权限漏洞可能互相影响；容器通常隔离文件系统、网络和资源配额，适合多数无强对抗服务；虚拟机或独立节点提供更强的内核与资源边界，适合不可信代码、敏感数据或高爆炸半径业务。再评估延迟、吞吐、启动速度、运维复杂度和成本，不能只看性能基准。工程上应结合最小权限、网络分段、配额、审计、补丁和密钥隔离，并通过故障注入、越权测试、资源争抢测试及恢复演练验证边界。最终按风险分级，而非一律选择最强隔离；对高风险租户可采用分层隔离与独立节点，并为降级、迁移和回滚预留方案。
 
-| 状态 | 权威方 | 离线策略 |
-|------|--------|----------|
-| 用户身份、授权和配额 | 云端控制面 | 端侧持有短期、限定 scope 的快照，过期后降权或停止高风险动作 |
-| 设备能力、实时传感器和本地文件 | 端侧 | 本地读取，按最小必要原则上传摘要或 Artifact 引用 |
-| Run 事件、Checkpoint 和副作用 | 创建该 Run 的控制面 | 用单调序号、幂等键和 lease 同步，不能靠最后写入覆盖 |
-| 模型、Prompt、Tool 和策略版本 | 云端发布面 | 端侧缓存已签名版本，离线期间固定版本运行 |
+**差距在哪**：浅层回答只会按成本或性能罗列隔离方式，深入回答还需说明威胁模型、故障半径、资源与权限边界，以及如何用越权和故障注入验证实际隔离效果。
 
-断网时端侧只能执行预先授权、可撤销、风险受限的动作，并把事件写入有界本地队列。恢复连接后先做身份续期和版本协商，再按 `run_id + event_seq + execution_id` 上传；服务端逐条确认，重复事件幂等吸收，冲突进入显式仲裁。KubeEdge 的 [EdgeHub](https://kubeedge.io/docs/architecture/edge/edgehub/)和 [Device Controller](https://kubeedge.io/docs/architecture/cloud/device_controller/)展示了端云连接、上/下行状态和 desired/reported state 分离，但 Agent 的用户授权与副作用语义仍需业务层自己实现。
-
-任务迁移只在语义 Checkpoint 处发生：冻结旧执行者、提交工作区/Artifact 清单、释放 lease，新执行者取得 fencing token 后校验模型与工具版本，再查询未知副作用并继续。没有可迁移状态的本地进程应从可验证步骤重建，而不是复制内存快照后假定外部世界没有变化。
-
-从本地迁到云端前先做能力与数据分类：可携带的是结构化 Run State、已授权 Artifact 和版本化执行契约；设备私钥、本地绝对路径、未授权文件与活进程不直接上传。云端先验证目标 Tool/模型版本和数据驻留约束，不兼容时应停在已验证 Checkpoint 并显式降级，而不是让云端在缺失上下文时猜测继续。
-
-**差距在哪**：新手只有“缓存后同步”，高手能定义权威状态、离线权限、冲突协议和任务唯一执行权。
-
----
 
 ## Q：Agent 调用 Sandbox 的链路如何容错？Sandbox 运行中崩溃后怎么恢复？
 
@@ -530,18 +567,6 @@ Kubernetes [Local Ephemeral Storage](https://kubernetes.io/docs/concepts/storage
 **差距在哪**：新手只有“定时器 + 重试”，高手把配置和执行实例分开，并为时间语义、重复触发、重叠执行、副作用幂等和可操作告警定义了可恢复契约。
 
 
-## Q：Agent 如何实现主动向用户推送消息？
-
-> 来源：[9.8 小厂 agent开发实习 面经](https://www.nowcoder.com/feed/main/detail/2f4e4cde4e524a16aae5f55a89c49273)
-
-**新手答**：由事件或定时任务触发 Agent，再通过消息通道发送结果。
-
-**高手答**：
-
-事件总线接收业务事件，Scheduler 创建带幂等键的 run，Runtime 执行后把通知投递到 WebSocket、SSE、站内信或短信。消息服务负责模板、偏好、重试和回执；用 outbox 保证状态与消息一致，去重避免重复推送，失败进入死信并支持取消和审计。
-
-**差距在哪**：考察事件驱动、异步执行和通知可靠性。
-
 ## Q：Agent 执行过程中如何提供安全停止功能？
 
 > 来源：[青岛弯弓 Agent](https://www.nowcoder.com/feed/main/detail/89e9597f580840f5a6e9f740cc6b0b97)
@@ -604,6 +629,63 @@ Agent 基础设施的角色是让 Agent 能稳定执行而非只完成一次 Dem
 
 **差距在哪**：浅层只列工具、记忆和监控，深入回答要建立从编排到安全、评估、恢复的能力模型，并用成功率、成本、延迟、越权和故障演练验证完备性。
 
+---
+
+## Q：Agent 文件系统访问边界与工作目录隔离如何设计？
+
+> 来源：[字节剪映AI应用开发一面](https://www.nowcoder.com/feed/main/detail/7211e82c75284d23a89b569cd9dc289d)
+
+**新手答**：“Agent 是否能读取工作目录外的文件，取决于运行环境的权限和访问控制配置。”
+
+**高手答**：
+
+工作目录只是路径约束，不应被当作安全边界。生产设计应让 Agent 在受限身份、容器或沙箱中运行，并采用默认拒绝的路径策略：仅允许工作目录及明确授权的只读目录，拦截绝对路径、路径穿越、符号链接逃逸和挂载点绕过；对越权读写进行审计，必要时在执行前向用户申请授权。工具层、操作系统权限和宿主机文件系统要多层防护，不能只依赖提示词。验证时应覆盖正常访问、../、软链接、并发任务和异常中断等用例，并检查是否存在缓存、日志泄露。便捷性与隔离强度之间需按任务风险取舍。
+
+**差距在哪**：浅层回答只讨论当前目录或权限现象，深入回答会把工作目录、工具策略、OS 沙箱、越权绕过和可验证的授权审计区分开，这是面试官考察的安全边界与工程落地能力。
+
+---
+
+## Q：Agent 工作流框架中的节点抽象如何设计？
+
+> 来源：[27秋招-恒生电子AI面试-AI应用开发岗-26.9.23](https://www.nowcoder.com/feed/main/detail/724b6bc0f02b42e58ff7397be51df3b5)
+
+**新手答**：“节点通常把一个独立步骤封装起来，定义输入、处理逻辑和输出，再由工作流编排节点之间的执行顺序。”
+
+**高手答**：
+
+节点抽象应把“可执行能力”与“编排关系”分开：节点声明输入输出 Schema、配置、依赖和执行入口，运行时接收受控上下文并返回结构化结果、状态与错误；工作流层负责串并行、条件分支、循环、暂停恢复和状态持久化。工程上要明确超时、取消、重试、幂等和副作用边界，外部写操作最好使用幂等键或补偿机制，避免重试造成重复扣款、重复发信等问题。节点还应统一日志、trace、指标和敏感数据脱敏，并在运行前后做 Schema 校验。验证可覆盖单节点契约测试、失败注入、恢复测试和端到端回放。强类型接口提升可观测性与可维护性，但会降低动态探索能力；过度通用的上下文则易产生隐式依赖，因此应限制可写状态并显式声明依赖。
+
+**差距在哪**：浅层回答只描述“输入—处理—输出”，而面试官更关注节点契约、状态与副作用、失败恢复、可观测性，以及灵活性和可维护性之间的取舍。
+
+---
+
+## Q：进程崩溃或退出后，分布式 Lease 如何检测、回收并避免资源被错误占用？
+
+> 来源：[快手大模型agent研发一面](https://www.nowcoder.com/discuss/932315325276618752)
+
+**新手答**：“Lease 通常通过租约超时和心跳判断持有者是否存活，进程崩溃后超时即可回收资源。”
+
+**高手答**：
+
+Lease 应由带持久化能力的协调存储记录持有者、过期时间和唯一 fencing token；持有进程定期续租，崩溃或失联后无法续租，其他参与者在确认过期后才能回收。不能只依赖本机退出钩子或客户端时钟，因为进程可能被强杀、网络可能分区，时钟也可能漂移。资源写入方必须校验 fencing token，只接受最新租约，防止旧进程在恢复后继续操作；回收动作还要幂等，并设置合理的续租间隔、过期窗口和权限边界。应通过进程强杀、网络隔离、暂停恢复和存储故障注入验证误占用、重复回收与脑裂场景，同时权衡回收速度和误判风险。
+
+**差距在哪**：浅层回答只知道“心跳超时回收”，深入回答要覆盖持久化协调、fencing token、网络分区、时钟风险、幂等回收及故障注入验证。
+
+---
+
+## Q：如何保证同一构建任务在分布式环境中同时只有一个 Worker 执行？
+
+> 来源：[快手大模型agent研发一面](https://www.nowcoder.com/discuss/932315325276618752)
+
+**新手答**：“可以使用分布式锁或带过期时间的 Lease，让同一构建任务在同一时刻只被一个 Worker 获取并执行。”
+
+**高手答**：
+
+不能仅靠“先查询再执行”保证唯一性，应为构建任务设置稳定的任务键，并由具备原子操作能力的协调组件执行抢占。Worker 获取 Lease 或锁时同时拿到递增的 fencing token，续租失败、进程暂停或网络分区后，旧 Worker 的写入会被下游拒绝。锁通常只解决当前持有者选择，token 才能防止过期持有者继续提交结果。任务状态更新、产物发布和重试还要具备幂等性，避免重复执行造成脏数据。应通过并发压测、进程暂停、网络隔离、协调服务故障注入，检查是否出现双写、死锁和任务永久卡住。代价是协调、续租和下游校验开销增加，且严格互斥会降低可用性。
+
+**差距在哪**：浅层只会说加分布式锁，深入回答还应覆盖 Lease 失效、fencing、防重复提交、故障注入验证及可用性权衡。
+
+---
 
 ## Agent Infra 系统设计答题主线
 

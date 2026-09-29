@@ -41,26 +41,9 @@ FlashAttention 的核心是 IO-aware，而不是把稠密 Attention 的数学计
 
 ---
 
-## Q：如何从模型结构估算参数量、FLOPs、训练显存、推理访存与 MFU？
-
-> 来源：[美团北斗 AI Infra 面经](https://www.nowcoder.com/feed/main/detail/841452f926a140babb84585de97c04aa)、[混元 AI Infra 面经](https://www.nowcoder.com/feed/main/detail/2a9106374f0842c6af57cdb3acb51190)、[讯飞飞星 AI Infra 面经](https://www.nowcoder.com/feed/main/detail/aed72ed951f54745b240e723df9a9f96)、[荣耀 AI Infra 面经](https://www.nowcoder.com/feed/main/detail/59dece94af144cba94157481f2e2b5ce)、[AI Infra 小厂面经](https://www.nowcoder.com/feed/main/detail/166e576d5afa4a298cf9492ed51bed04)、[字节 AI Infra 二面](https://www.nowcoder.com/feed/main/detail/eaea5cf9e9e44c5bb5fecf3f1d8243ce)；本轮追问：是否做了模型的 scaling up？模型的参数量和计算量在什么 level？（[本轮追问](https://www.nowcoder.com/discuss/927381090602348544)）；本轮追问：大模型推理为什么经常受访存限制？（[pdd ai infra 提前批 一面面经](https://www.nowcoder.com/discuss/930808011218571264)）
-
-**新手答**：“参数量乘数据类型字节数就是显存，FLOPs 越高训练越慢。”
-
-**高手答**：
-
-先写模型形状，再分对象核算。参数量由 Embedding、Attention 投影、FFN/Expert 和输出头组成；FLOPs 要区分训练、Prefill 与 Decode，并明确是否把乘加计作一次或两次操作。训练显存不只有权重，还包括梯度、优化器状态、Master Weight、激活、通信缓冲、临时 Workspace 和碎片；推理还要加入 KV Cache、Batch 与上下文长度。推理访存则关注每 Token 需要读取的权重、KV 和中间结果。MFU 应写成“实际有效模型计算吞吐 / 选定硬件峰值”，同时声明稀疏 MoE、重计算、Padding 和精度口径。最终用实测 Profile 校准估算，而不是拿理论峰值直接当容量结论。
-
-
-Decode 阶段每生成一个 Token，矩阵计算规模小，却要读取大量模型权重和历史 KV Cache，计算强度低，容易受 GPU 显存带宽和访存延迟限制；Prefill 通常更偏计算受限。可通过增大有效批次、KV Cache 优化、量化和减少无效 Padding 改善，并用 Profile 对比计算利用率与带宽利用率验证瓶颈。
-
-**差距在哪**：新手只算权重，高手能声明口径、覆盖隐藏内存，并按执行阶段建立可校准的成本模型。
-
----
-
 ## Q：KV Cache 占用如何计算，为什么不能只按请求数做容量规划？
 
-> 来源：[抖音搜推 AI Infra 一面](https://www.nowcoder.com/feed/main/detail/e5f1a15d50414c86a0e64f2dbc13a02f)、[百度 AI Infra 一面](https://www.nowcoder.com/feed/main/detail/05c5fe23173245a4ab39b3dddf2b95bb)、[字节 App Infra Agent 一面](https://www.nowcoder.com/feed/main/detail/0bec32fbb3344ff98f16b97f47c7b857)、[字节社招一面](https://www.nowcoder.com/feed/main/detail/a385d6cc457d47c99c03cb8ea752ab89)【阿里 Agent Infra 一面题库追问：KV Cache 原理】【[华为 - 大模型算法岗（AI Infra / 训练优化）](https://www.nowcoder.com/discuss/926272625410674688)追问：Transformer 推理中 KV Cache 显存估算及 batch 增大瓶颈？】；本轮追问：MHA、MQA、GQA 在 KV Cache 显存占用和模型效果上有什么区别？（[本轮追问](https://www.nowcoder.com/feed/main/detail/19d5ea0eda0e40de8a060ac516703c58)）；本轮追问：每周多少 token/需求数？24h 跑吗？（[本轮追问](https://www.nowcoder.com/feed/main/detail/a11a3a9e0d824969b44db5bb2149ef9f)）；本轮追问：了解 KV cache 吗？它在什么场景下使用、起什么作用？（[本轮追问](https://www.nowcoder.com/feed/main/detail/c366afaed5b84de2b05d70bc6f2b81f2)）；本轮追问：KV Cache 的作用和显存开销是什么？（[pdd ai infra 提前批 一面面经](https://www.nowcoder.com/discuss/930808011218571264)）；本轮追问：KV Cache的原理是什么？（[滴滴一些面经合集（算法）](https://www.nowcoder.com/feed/main/detail/37cae17c5f2a49ee81375721f53bbf9b)）
+> 来源：[抖音搜推 AI Infra 一面](https://www.nowcoder.com/feed/main/detail/e5f1a15d50414c86a0e64f2dbc13a02f)、[百度 AI Infra 一面](https://www.nowcoder.com/feed/main/detail/05c5fe23173245a4ab39b3dddf2b95bb)、[字节 App Infra Agent 一面](https://www.nowcoder.com/feed/main/detail/0bec32fbb3344ff98f16b97f47c7b857)、[字节社招一面](https://www.nowcoder.com/feed/main/detail/a385d6cc457d47c99c03cb8ea752ab89)【阿里 Agent Infra 一面题库追问：KV Cache 原理】【[华为 - 大模型算法岗（AI Infra / 训练优化）](https://www.nowcoder.com/discuss/926272625410674688)追问：Transformer 推理中 KV Cache 显存估算及 batch 增大瓶颈？】；本轮追问：MHA、MQA、GQA 在 KV Cache 显存占用和模型效果上有什么区别？（[本轮追问](https://www.nowcoder.com/feed/main/detail/19d5ea0eda0e40de8a060ac516703c58)）；本轮追问：每周多少 token/需求数？24h 跑吗？（[本轮追问](https://www.nowcoder.com/feed/main/detail/a11a3a9e0d824969b44db5bb2149ef9f)）；本轮追问：了解 KV cache 吗？它在什么场景下使用、起什么作用？（[本轮追问](https://www.nowcoder.com/feed/main/detail/c366afaed5b84de2b05d70bc6f2b81f2)）；本轮追问：KV Cache 的作用和显存开销是什么？（[pdd ai infra 提前批 一面面经](https://www.nowcoder.com/discuss/930808011218571264)）；本轮追问：KV Cache的原理是什么？（[滴滴一些面经合集（算法）](https://www.nowcoder.com/feed/main/detail/37cae17c5f2a49ee81375721f53bbf9b)）；本轮追问：为什么 KV cache 重要？ / 为什么缓存 KV 而不是 Q？（[淘天集团 Agent算法 一面](https://www.nowcoder.com/discuss/931957859154132992)）
 
 **新手答**：“KV Cache 和上下文长度成正比，显存不够就减少并发。”
 
@@ -80,7 +63,27 @@ KV bytes ≈ 2 × layers × tokens × kv_heads × head_dim × bytes_per_element
 
 机制上，生成第一个 Token 时计算上下文各位置的 K、V；后续解码只需用新 Token 的 Q 与已缓存的 K、V 做注意力，避免重复计算历史 Token。代价是缓存随层数、序列长度、并发和 KV 头数线性增长，并持续占用显存。
 
+
+KV 比 Q 更值得缓存：同一层历史 Token 的 K、V 会被后续每个新 Token 重复访问，而每步 Q 都由当前新 Token 重新计算，通常只使用一次；缓存 Q 既不能复用历史计算，还会增加额外显存。因此解码阶段保留历史 K、V 即可避免主要的重复注意力计算。
+
 **差距在哪**：新手只知道 KV Cache 占显存，高手能从模型结构算容量，并把分页、准入和缓存正确性连起来。
+
+---
+
+## Q：如何从模型结构估算参数量、FLOPs、训练显存、推理访存与 MFU？
+
+> 来源：[美团北斗 AI Infra 面经](https://www.nowcoder.com/feed/main/detail/841452f926a140babb84585de97c04aa)、[混元 AI Infra 面经](https://www.nowcoder.com/feed/main/detail/2a9106374f0842c6af57cdb3acb51190)、[讯飞飞星 AI Infra 面经](https://www.nowcoder.com/feed/main/detail/aed72ed951f54745b240e723df9a9f96)、[荣耀 AI Infra 面经](https://www.nowcoder.com/feed/main/detail/59dece94af144cba94157481f2e2b5ce)、[AI Infra 小厂面经](https://www.nowcoder.com/feed/main/detail/166e576d5afa4a298cf9492ed51bed04)、[字节 AI Infra 二面](https://www.nowcoder.com/feed/main/detail/eaea5cf9e9e44c5bb5fecf3f1d8243ce)；本轮追问：是否做了模型的 scaling up？模型的参数量和计算量在什么 level？（[本轮追问](https://www.nowcoder.com/discuss/927381090602348544)）；本轮追问：大模型推理为什么经常受访存限制？（[pdd ai infra 提前批 一面面经](https://www.nowcoder.com/discuss/930808011218571264)）
+
+**新手答**：“参数量乘数据类型字节数就是显存，FLOPs 越高训练越慢。”
+
+**高手答**：
+
+先写模型形状，再分对象核算。参数量由 Embedding、Attention 投影、FFN/Expert 和输出头组成；FLOPs 要区分训练、Prefill 与 Decode，并明确是否把乘加计作一次或两次操作。训练显存不只有权重，还包括梯度、优化器状态、Master Weight、激活、通信缓冲、临时 Workspace 和碎片；推理还要加入 KV Cache、Batch 与上下文长度。推理访存则关注每 Token 需要读取的权重、KV 和中间结果。MFU 应写成“实际有效模型计算吞吐 / 选定硬件峰值”，同时声明稀疏 MoE、重计算、Padding 和精度口径。最终用实测 Profile 校准估算，而不是拿理论峰值直接当容量结论。
+
+
+Decode 阶段每生成一个 Token，矩阵计算规模小，却要读取大量模型权重和历史 KV Cache，计算强度低，容易受 GPU 显存带宽和访存延迟限制；Prefill 通常更偏计算受限。可通过增大有效批次、KV Cache 优化、量化和减少无效 Padding 改善，并用 Profile 对比计算利用率与带宽利用率验证瓶颈。
+
+**差距在哪**：新手只算权重，高手能声明口径、覆盖隐藏内存，并按执行阶段建立可校准的成本模型。
 
 ---
 
@@ -413,6 +416,20 @@ RCA 层应输出带证据的候选列表，而不是一句确定性结论：哪�
 
 ---
 
+## Q：KV Cache 命中率如何评估与优化？
+
+> 来源：[【社招】腾讯二面面经](https://www.nowcoder.com/feed/main/detail/12b18eae310d4b7eadd896aef7f4a712)
+
+**新手答**：“KV Cache 命中率取决于请求是否共享相同前缀，可以通过复用历史 KV、设计更稳定的提示词和合理管理缓存来提高。”
+
+**高手答**：
+
+KV Cache 的“命中率”需先定义口径：前缀缓存通常按可复用 token 数除以输入 token 数统计，也可同时看请求命中率、命中 token 数、首 token 延迟和显存占用；不能把命中率直接等同于整体加速。多数实现要求 token 前缀完全一致，因此应稳定系统提示词和模板、把公共内容放在前面、规范化序列化方式，并按租户或模型隔离缓存。工程上要采用分块缓存、LRU 或成本感知淘汰、容量上限和 TTL，避免热点挤占、跨租户数据泄露及版本变更导致错误复用。评估应按真实流量分层对比命中与未命中请求，验证延迟、吞吐、显存、质量和缓存失效；还要覆盖流式取消、长上下文、并发争用与滚动升级等失败场景。
+
+**差距在哪**：浅层只会说复用历史 KV 和优化提示词，深层要先界定命中口径，再覆盖缓存键、淘汰隔离、指标验证与安全边界。
+
+---
+
 ## Q：AI Infra 和 Agent Infra 有什么区别？
 
 > 来源：AI 平台 / Agent 平台边界高频题；本轮追问：ReAct和Agent有什么区别？（[本轮追问](https://www.nowcoder.com/feed/main/detail/89e9597f580840f5a6e9f740cc6b0b97)）
@@ -586,6 +603,19 @@ nsys 是系统级时间线工具，适合观察 CPU 线程、进程、CUDA API�
 **差距在哪**：浅层回答只描述“多分支后验证”，深层回答还应说明树的展开与 KV 复用、验收回退、资源边界、动态参数及用接受率和端到端延迟验证的权衡。
 
 
+## Q：训练与推理引擎的核心模块、底层工作与优化方向是什么？
+
+> 来源：[9.22 阿里千问二面](https://www.nowcoder.com/feed/main/detail/5ff7b7fde8bc49eb960d5badde3ac623)
+
+**新手答**：“训练引擎负责模型训练，推理引擎负责高效执行模型，底层通常涉及算子、显存、并行和调度优化。”
+
+**高手答**：
+
+训练与推理引擎是连接模型计算图和硬件资源的运行时系统。训练侧通常包括自动微分、算子实现、计算图编译、混合精度、显存管理、通信与数据并行；推理侧还要处理图优化、权重加载、批处理、KV Cache、请求调度和服务接口。底层优化围绕算子融合、内存复用、内核选择、流水线并行和通信计算重叠展开，但吞吐、时延、显存占用和数值精度往往互相制约。工程上应先用正确性测试、精度对比、端到端延迟与吞吐压测、显存和通信 profiling 定位瓶颈，再决定优化，避免只优化单个算子却恶化整体服务。
+
+**差距在哪**：浅层回答只停留在“训练和推理更快”，深层回答应能拆出编译、运行时、硬件、并行与服务调度，并说明指标验证和优化权衡。
+
+
 ## Q：GPU 调度和普通 CPU 调度有什么不同？
 
 > 来源：Kubernetes GPU Scheduler 高频题
@@ -601,6 +631,8 @@ GPU 通常是稀缺、异构且拓扑敏感的资源。除了型号和显存，�
 还要维护 GPU 健康状态：对 Xid、ECC、温度、掉卡和链路降速进行检测，隔离问题设备并保留诊断证据，避免任务在坏节点上反复失败。
 
 **差距在哪**：新手只会写资源声明，高手理解拓扑、成组调度、碎片、公平性和设备健康。
+
+---
 
 ---
 
